@@ -1,9 +1,14 @@
 extends main.layout.pug 
+include ./mixins.pug
 
 block content 
   .welcome-section 
     include ./sections/hero.pug          
     include ./sections/about.pug
+
   .middle-section 
+    +triangle("triangles__top")
+
     include ./sections/values.pug
 
+    +triangle("triangles__bottom")
