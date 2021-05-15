@@ -1,0 +1,30 @@
+.slider {
+  &__header {
+    display: flex;
+    margin-bottom: 78px;
+    justify-content: space-between;
+    margin-right: 55%;
+  }
+
+  &__content {
+    display: flex;
+    width: 65%;
+  }
+
+  &__item {
+    margin-right: 55px;
+    display: flex;
+    justify-content: flex-end;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &-icon {
+      width: 77px;
+      height: 77px;
+      fill: rgba($text-color, .2);
+      margin-right: 21px;
+    }
+  }
+}
