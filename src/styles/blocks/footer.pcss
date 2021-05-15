@@ -1,0 +1,66 @@
+.footer {
+  background: #252830;
+
+  &__container {
+    height: 33vh;
+    display: flex;
+    padding-top: 70px;
+  }
+
+  &__copyright {
+    width: 30%;
+    display: flex;
+    justify-content: space-around;
+
+    &-year {
+      font-weight: 600;
+      font-size: 48px;
+    }
+
+    &-userinfo {
+      display: flex;
+      flex-direction: column;
+      width: 40%;
+    }
+
+    &-name {
+      font-weight: bold;
+      font-size: 18px;
+      color: white;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+  }
+
+  &__data {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__data-content {
+    display: flex;
+  }
+
+  &__data-menu {
+    margin-bottom: 45px;
+
+    .menu__list {
+      justify-content: start;
+    }
+  }
+
+  &__data-text {
+    color: rgba(#fff, .45);
+    margin-bottom: 40px;
+  }
+
+  &__data-col {
+    width: 40%;
+    margin-right: 30px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
