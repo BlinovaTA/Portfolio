@@ -1,0 +1,22 @@
+.triangles {
+  display: flex;
+  height: 100px;
+  position: absolute;
+  width: 100%;
+
+  &__top {
+    bottom: 100%;
+  }
+
+  &__bottom {
+    .triangles__shape {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__shape {
+    width: 50%;
+    fill: #fff;
+    height: 100%;
+  }
+}

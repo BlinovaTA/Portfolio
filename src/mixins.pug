@@ -5,3 +5,10 @@ mixin icon(name, className)
 
 mixin image(path, className)
   img(src=require(`images/${path}`).default class=className)
+
+mixin triangle(className)
+  div(class=className).triangles
+    svg(viewBox="0 0 1000 100" preserveAspectRatio="none").triangles__shape.triangles__shape_left
+      polygon(points="0,0 0,100 1000,100")
+    svg(viewBox="0 0 1000 100" preserveAspectRatio="none").triangles__shape.triangles__shape_right
+      polygon(points="0,100 1000,100 1000,0")

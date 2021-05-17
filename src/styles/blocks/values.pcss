@@ -1,0 +1,50 @@
+.values {
+  &__container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &:before {
+      content: "";
+      position: absolute;
+      background: url('~images/decor/bag.png') left bottom / contain no-repeat;
+      display: block;
+      bottom: 10%;
+      height: 60%;
+      width: 45%;
+      left: 0%;
+    }
+  }
+  &__wrapper {
+    position: relative;
+  }
+
+  &__title-container {
+    width: 40%;
+    margin-left: 30%;
+  }
+
+  &__title-text {
+    font-weight: bold;
+    font-size: 30px;
+    color: $text-color;
+    margin-bottom: 53px;
+  }
+
+  &__content {
+    font-weight: 600;
+    line-height: 30px;
+    color: rgba($text-color, .8);
+    margin-bottom: 80px;
+  }
+
+  &__widget {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__widget-container {
+    width: 60%;
+  }
+}

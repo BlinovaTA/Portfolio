@@ -1,0 +1,34 @@
+.square-btns {
+  background: #252830;
+  
+  &__item {
+    height: 53px;
+    width: 53px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__item--next {
+    .square-btns__icon {
+      transform: rotate(270deg);
+    }
+  }
+
+  &__item--prev {
+    .square-btns__icon {
+      transform: rotate(90deg);
+    }
+  }
+
+  &__icon {
+    width: 18px;
+    height: 18px;
+    fill: #717883;
+
+    &:hover {
+      fill: $text-color-hover-dark;
+    }
+  }
+}

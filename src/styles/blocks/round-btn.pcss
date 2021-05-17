@@ -1,0 +1,36 @@
+.round-btn {
+  height: 53px;
+  width: 53px;
+  border-radius: 50%;
+  border: 2px solid $text-color;
+  background: transparent;
+  margin-right: 28px;
+
+  &:hover {
+    border-color: $text-color-hover;
+
+    .round-btn__icon {
+      fill: $text-color-hover;
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &--pointer--left {
+    .round-btn__icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__icon {
+    height: 18px;
+    width: 17px;
+    fill: $text-color;
+  }
+}

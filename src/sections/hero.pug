@@ -1,0 +1,28 @@
+section.hero 
+  .container.hero__container
+    header.header
+      a.logo(href="#") БТ
+
+      nav.menu
+        ul.menu__list
+          - var menuLinks = ["Обо мне", "Навыки", "Работы", "Отзывы"];
+          each item in menuLinks 
+            li.menu__item
+              a(href="#").menu__link #{item}
+
+      ul.socials
+        - var socials = ["insta", "github", "vk", "envelope"];
+        each item in socials
+          li.socials__item
+            a(href="#").socials__link
+              +icon(item, "socials__icon")
+
+    .userinfo
+      .userinfo__title Личный сайт веб разработчика
+      .userinfo__name Блинова Татьяна
+
+    .hero__bottom-buttons
+      button.scroll-down-btn
+        .scroll-down-btn__title Скролл
+        a(href="#").scroll-down-btn__link
+          +icon("scroll", "scroll-down-btn__icon")

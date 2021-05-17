@@ -1,0 +1,36 @@
+.scroll-down-btn {
+  display: flex;
+  background: none;
+  outline: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    .scroll-down-btn__title {
+      color: $text-color-hover;
+    }
+
+    .scroll-down-btn__icon {
+      fill: $text-color-hover;
+    }
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: 18px;
+    margin-right: 15px;
+    color: $text-color;
+  }
+
+  &__link:focus {
+    outline: none;
+  }
+
+  &__icon {
+    fill: $text-color;
+    width: 14px;
+    height: 14px;
+  }
+}

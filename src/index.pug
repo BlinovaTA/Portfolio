@@ -1,15 +1,18 @@
+extends main.layout.pug 
 include ./mixins.pug
 
-<!DOCTYPE html>
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    meta(http-equiv="X-UA-Compatible", content="ie=edge")
-    title Portfolio | main page
-  body
-    .wrapper
-      .maincontent
-        +image('content/user.jpg', 'user-pic')
-        +icon('link', 'link-class')
-        .icon-bg
+block content 
+  .welcome-section 
+    include ./sections/hero.pug          
+    include ./sections/about.pug
+
+  .middle-section 
+    +triangle("triangles__top")
+
+    include ./sections/values.pug
+    include ./sections/works.pug
+
+    +triangle("triangles__bottom")
+
+    include ./sections/reviews.pug
+    include ./sections/footer.pug
