@@ -14,9 +14,10 @@
   }
 
   &__pictures {
+    width: 975px;
     position: relative;
+    z-index: 10;
     height: 549px;
-    width: 64%;
     margin-right: 158px;
 
     &:before {
@@ -36,7 +37,6 @@
       top: 0;
       right: 0;
       width: 100%;
-      height: 100%; 
     }
   }
 
@@ -48,8 +48,12 @@
   &__thumbs {
     position: absolute;
     right: 0;
-    bottom: 0;
+    bottom: 53px;
     width: 178px;
+    
+    @include desktop {
+      width: 116px;
+    }
 
     &__item {
       height: 100px;
@@ -68,7 +72,11 @@
   }
 
   &__info {
-    width: 20%;
+    width: 22%;
+
+    @include desktop {
+      width: 35%
+    }
   }
 
   &__title {

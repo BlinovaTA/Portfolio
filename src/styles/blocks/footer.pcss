@@ -10,7 +10,18 @@
   &__copyright {
     width: 30%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
+
+    @include desktop {
+      justify-content: flex-start;
+      flex-direction: column;
+    }
+
+    @include desktop {
+      &-col {
+        margin-bottom: 20px;
+      }
+    }    
 
     &-year {
       font-weight: 600;
@@ -20,7 +31,6 @@
     &-userinfo {
       display: flex;
       flex-direction: column;
-      width: 39%;
     }
 
     &-name {
@@ -40,6 +50,7 @@
 
   &__data-content {
     display: flex;
+    justify-content: space-between;
   }
 
   &__data-menu {
@@ -60,15 +71,11 @@
   }
 
   &__data-col {
-    width: 30%;
-    margin-right: 150px;
-
-    &:last-child {
-      margin-right: 0;
-    }
+    max-width: 350px;
 
     &--quote {
-      width: 45%
+      width: 45%;
+      max-width: none;
     }
   }
 }

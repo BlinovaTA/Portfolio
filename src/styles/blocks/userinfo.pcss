@@ -4,6 +4,12 @@
   color: $text-color;
   align-items: center;
 
+  @include desktop {
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start
+  }
+
   &__title {
     opacity: .5;
     font-weight: 600;
@@ -11,6 +17,10 @@
     width: 165px;
     text-align: center;
     margin-bottom: 24px;
+
+    @include desktop {
+      text-align: end;
+    }
   }
 
   &__name {
