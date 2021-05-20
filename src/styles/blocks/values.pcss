@@ -14,6 +14,13 @@
       height: 79%;
       width: 69%;
       left: -20%;
+
+      @include tablets {
+        bottom: -12%;
+        height: 25%;
+        width: 34%;
+        left: 35%;
+      }
     }
   }
   &__wrapper {
@@ -23,6 +30,15 @@
   &__title-container {
     max-width: 600px;
     margin-left: 30%;
+
+    @include tablets {
+      max-width: none;
+      margin-left: 0;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
   }
 
   &__title-text {
@@ -30,6 +46,11 @@
     font-size: 30px;
     color: $text-color;
     margin-bottom: 53px;
+    max-width: 270px;
+
+    @include tablets {
+      margin-bottom: 28px;
+    }
   }
 
   &__content {
@@ -37,14 +58,27 @@
     line-height: 30px;
     color: rgba($text-color, .8);
     margin-bottom: 80px;
+    width: 67%;
+
+    @include tablets {
+      margin-bottom: 50px;
+    }
   }
 
   &__widget {
     display: flex;
     justify-content: flex-end;
+
+    @include tablets {
+      justify-content: center;
+    }
   }
 
   &__widget-container {
     width: 68%;
+
+    @include tablets {
+      width: 100%;
+    }
   }
 }

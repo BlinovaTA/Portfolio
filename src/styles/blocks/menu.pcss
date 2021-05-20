@@ -24,4 +24,22 @@
   &--color-white {
     color: white;
   }
+
+  &__burger {
+    display: none;
+
+    @include tablets {
+      display: inline;
+    }
+
+    &-icon {
+      width: 30px;
+      height: 25px;
+      fill: $text-color;
+
+      &:hover {
+        fill: $text-color-hover;
+      }
+    }
+  }
 }

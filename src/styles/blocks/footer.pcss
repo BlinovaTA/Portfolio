@@ -5,6 +5,10 @@
     height: 370px;
     display: flex;
     padding-top: 70px;
+
+    @include tablets {
+      height: 484px;
+    }
   }
 
   &__copyright {
@@ -46,11 +50,22 @@
     width: 70%;
     display: flex;
     flex-direction: column;
+
+    &-socials {
+      @include tablets {
+        margin-bottom: 51px;
+      }
+    }
   }
 
   &__data-content {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+
+    @include tablets {
+      width: 90%;
+    }
   }
 
   &__data-menu {
@@ -68,14 +83,26 @@
   &__data-text {
     color: rgba(#fff, .45);
     margin-bottom: 50px;
+
+    @include tablets {
+      margin-bottom: 21px;
+    }
   }
 
   &__data-col {
     max-width: 350px;
 
+    @include tablets {
+      max-width: none;
+    }
+
     &--quote {
       width: 45%;
       max-width: none;
+
+      @include tablets {
+        width: 100%;
+      }
     }
   }
 }

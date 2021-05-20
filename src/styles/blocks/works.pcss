@@ -7,18 +7,32 @@
 
   &__section-title {
     margin-bottom: 83px;
+
+    @include tablets {
+      margin-bottom: 48px;
+    }
   }
   
   &__content {
     display: flex;
+
+    @include tablets {
+      flex-direction: column;
+      align-items: center;
+    }
   }
 
   &__pictures {
     width: 975px;
     position: relative;
-    z-index: 10;
     height: 549px;
     margin-right: 158px;
+
+    @include tablets {
+      width: 80%;
+      height: 380px;
+      margin-bottom: 60px;
+    }
 
     &:before {
       content: attr(data-slide);
@@ -37,6 +51,10 @@
       top: 0;
       right: 0;
       width: 100%;
+
+      @include tablets {
+        height: 100%;
+      }
     }
   }
 
@@ -53,6 +71,7 @@
     
     @include desktop {
       width: 116px;
+      bottom: 35px;
     }
 
     &__item {
@@ -77,18 +96,35 @@
     @include desktop {
       width: 35%
     }
+
+    @include tablets {
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
   }
 
   &__title {
     font-weight: bold;
     font-size: 30px;
     margin-bottom: 35px;
+
+    @include tablets {
+      margin-bottom: 12px;
+      text-align: center;
+    }
   }
 
   &__desc {
     font-weight: 600;
     color: rgba($text-color, .8);
     margin-bottom: 45px;
+
+    @include tablets {
+      text-align: center;
+      margin-bottom: 29px;
+    }
   }
 }
 

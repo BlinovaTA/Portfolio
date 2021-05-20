@@ -1,11 +1,22 @@
 .slider {
   padding-top: 60px;
+  width: 100%;
 
   &__header {
     display: flex;
     margin-bottom: 78px;
     justify-content: space-between;
-    margin-right: 55%;
+    margin-right: 50%;
+
+    @include desktop {
+      margin-right: 30%;
+    }
+
+    @include tablets {
+      margin-right: 0;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
   }
 
   &__content {
@@ -27,6 +38,12 @@
       height: 77px;
       fill: rgba($text-color, .2);
       margin-right: 21px;
+    }
+  }
+
+  &__section-title {
+    @include tablets {
+      margin-right: 24px;
     }
   }
 }
