@@ -5,6 +5,9 @@ html {
   @include tablets {
     font-size: 14px;
   }
+  @include phones {
+    font-size: 13px;
+  }
 }
 body,
 html {
@@ -31,6 +34,10 @@ body {
   max-width: 1510px;
   height: 100vh;
   width: 95%;
+
+  @include phones {
+    width: 85%;
+  }
 }
 
 .fullscreen-section {

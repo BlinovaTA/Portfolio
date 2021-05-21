@@ -1,20 +1,43 @@
+.about__container.container {
+  @include phones {
+    min-height: 1000px;
+  }
+}
+
 .about {
   &__container {
     display: flex;
     align-items: center;
     max-width: 1010px;
+
+    @include phones {
+      flex-direction: column;
+    }
   }
 
   &__user {
     display: flex;
     justify-content: center;
     margin-right: 150px;
+
+    @include tablets {
+      margin-right: 100px;
+    }
+    
+    @include phones {
+      margin-right: 0;
+      margin-bottom: 45px;
+    }
   }
 
   &__desc {
     font-weight: 600;
     margin-bottom: 20px;
     color: rgba($text-color, .5);
+
+    @include phones {
+      margin-bottom: 5px;
+    }
   }
 
   &__title {
@@ -27,6 +50,10 @@
   &__text-info {
     margin-bottom: 77px;
     line-height: 30px;
+
+    @include phones {
+      margin-bottom: 60px;
+    }
   }
 
   &__ps {
@@ -42,6 +69,10 @@
       position: absolute;
       left: -55px;
       top: 10px;
+
+      @include phones {
+        left: -30px;
+      }
     }
   }
 }

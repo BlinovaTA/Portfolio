@@ -14,18 +14,20 @@ section.reviews
             author: "Ковальчук Дмитрий",
             position: "Основатель Loftschool",
             comment: "Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!",
-            photo: "user"
+            photo: "user",
+            active: true
           },
           {
             author: "Владимир Сабанцев",
             position: "Преподаватель",
             comment: "Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах",
-            photo: "user"
+            photo: "user",
+            active: false
           }
         ];
       ul.slider__content
         each review in reviewsData 
-          li.slider__item 
+          li(class=review.active ? "slider__item--active" : "").slider__item
             .slider__item-pic 
               +icon("quote", "slider__item-icon")
             .quote 

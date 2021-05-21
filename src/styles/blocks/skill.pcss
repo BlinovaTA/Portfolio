@@ -3,6 +3,16 @@
   width: 166px;
   height: 166px;
 
+  @include desktop {
+    width: 132px;
+    height: 132px;
+  }
+
+  @include phones {
+    width: 115px;
+    height: 115px;
+  }
+
   &__circle {
     fill: transparent;
 
@@ -27,5 +37,9 @@
     font-size: 18px;
     color: rgba($text-color, .5);
     padding: 14px;
+
+    @include phones {
+      font-size: 15px;
+    }
   }
 }
