@@ -40,10 +40,18 @@ new Vue({
 
           break;
       }
+    },
+    getSlidesPerView() {
+      if (window.matchMedia("(max-width: 480px)").matches) {
+        return 1;
+      } else {
+        return 2;
+      }
     }
   },
   created() {
     const data = require("../data/reviews.json");
     this.reviews = this.requireImagesToArray(data);
+    this.sliderOptions.slidesPerView = this.getSlidesPerView();
   }
 })
