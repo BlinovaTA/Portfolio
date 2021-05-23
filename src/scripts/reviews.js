@@ -13,7 +13,12 @@ new Vue({
     return {
       reviews: [],
       sliderOptions: {
-        slidesPerView: 2
+        slidesPerView: 1,
+        breakpoints: {
+          481: {
+            slidesPerView: 2
+          }
+        }
       }
     }
   },
@@ -40,18 +45,10 @@ new Vue({
 
           break;
       }
-    },
-    getSlidesPerView() {
-      if (window.matchMedia("(max-width: 480px)").matches) {
-        return 1;
-      } else {
-        return 2;
-      }
     }
   },
   created() {
     const data = require("../data/reviews.json");
     this.reviews = this.requireImagesToArray(data);
-    this.sliderOptions.slidesPerView = this.getSlidesPerView();
   }
 })

@@ -24,13 +24,15 @@
     @include desktop {
       justify-content: flex-start;
       flex-direction: column;
+      width: 14%;
+      margin-right: 120px;
     }
 
-    @include tablets {
-      &-col {
+    &-col {
+      @include tablets {
         margin-bottom: 20px;
-      }
-    }  
+      }  
+    }
     
     @include phones {
       width: 100%;
@@ -40,11 +42,18 @@
     &-year {
       font-weight: 600;
       font-size: 48px;
+      line-height: 1;
+      margin-bottom: 24px;
     }
 
     &-userinfo {
       display: flex;
       flex-direction: column;
+      width: 39%;
+
+      @include desktop {
+        width: 100%;
+      }
     }
 
     &-name {
@@ -79,6 +88,10 @@
   &__data-content {
     display: flex;
     justify-content: space-between;
+
+    @include desktop {
+      justify-content: start;
+    }
 
     @include tablets {
       width: 90%;
@@ -127,6 +140,10 @@
   &__data-col {
     max-width: 350px;
 
+    @include desktop {
+      margin-right: 18px;
+    }
+
     @include tablets {
       max-width: none;
     }
@@ -134,6 +151,10 @@
     &--quote {
       width: 45%;
       max-width: none;
+
+      @include desktop {
+        width: 50%;
+      }
 
       @include tablets {
         width: 100%;
