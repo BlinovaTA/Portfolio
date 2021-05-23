@@ -33,4 +33,19 @@
     width: 17px;
     fill: $text-color;
   }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+    border-color: $text-color;
+
+    &:hover {
+      cursop: default;
+      border-color: $text-color;
+
+      .round-btn__icon {
+        fill: $text-color;
+      }
+    }
+  }
 }
