@@ -5,22 +5,55 @@
     height: 370px;
     display: flex;
     padding-top: 70px;
+
+    @include tablets {
+      height: 484px;
+    }
+
+    @include phones {
+      height: 743px;
+      flex-direction: column;
+    }
   }
 
   &__copyright {
     width: 30%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
+
+    @include desktop {
+      justify-content: flex-start;
+      flex-direction: column;
+      width: 14%;
+      margin-right: 120px;
+    }
+
+    &-col {
+      @include tablets {
+        margin-bottom: 20px;
+      }  
+    }
+    
+    @include phones {
+      width: 100%;
+      margin-bottom: 45px;
+    }
 
     &-year {
       font-weight: 600;
       font-size: 48px;
+      line-height: 1;
+      margin-bottom: 24px;
     }
 
     &-userinfo {
       display: flex;
       flex-direction: column;
       width: 39%;
+
+      @include desktop {
+        width: 100%;
+      }
     }
 
     &-name {
@@ -36,17 +69,58 @@
     width: 70%;
     display: flex;
     flex-direction: column;
+
+    @include phones {
+      width: 100%;
+    }
+
+    &-socials {
+      @include tablets {
+        margin-bottom: 51px;
+      }
+
+      @include phones {
+        margin-bottom: 31px;
+      }
+    }
   }
 
   &__data-content {
     display: flex;
+    justify-content: space-between;
+
+    @include desktop {
+      justify-content: start;
+    }
+
+    @include tablets {
+      width: 90%;
+      flex-direction: column;
+    }
+
+    @include tablets {
+      width: 100%;
+    }
   }
 
   &__data-menu {
     margin-bottom: 45px;
 
+    @include phones {
+      margin-bottom: 23px;
+    }
+
     .menu__list {
       justify-content: start;
+      flex-wrap: wrap;
+    }
+
+    .menu__item {
+      @include phones {
+        width: 55px;
+        margin-right: 80px;
+        margin-bottom: 22px;
+      }
     }
 
     .menu__link:hover {
@@ -57,18 +131,34 @@
   &__data-text {
     color: rgba(#fff, .45);
     margin-bottom: 50px;
+
+    @include tablets {
+      margin-bottom: 21px;
+    }
   }
 
   &__data-col {
-    width: 30%;
-    margin-right: 150px;
+    max-width: 350px;
 
-    &:last-child {
-      margin-right: 0;
+    @include desktop {
+      margin-right: 18px;
+    }
+
+    @include tablets {
+      max-width: none;
     }
 
     &--quote {
-      width: 45%
+      width: 45%;
+      max-width: none;
+
+      @include desktop {
+        width: 50%;
+      }
+
+      @include tablets {
+        width: 100%;
+      }
     }
   }
 }

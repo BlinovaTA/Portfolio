@@ -1,0 +1,35 @@
+script(type="text/x-template")#slider-container
+  .slider
+    .slider__header
+      .section-title.slider__section-title Что обо мне говорят
+      .slider__btns(@click="checkArrows")
+        button(
+          type="buttons" 
+          @click="slide('prev')"
+          :disabled="disabledPrev"
+        ).round-btn.round-btn--pointer--left
+          +icon("arrow-down", "round-btn__icon")
+        button(
+          type="buttons"
+          @click="slide('next')"
+          :disabled="disabledNext"
+        ).round-btn.round-btn--pointer--right
+          +icon("arrow-down", "round-btn__icon")
+
+    .slider__content
+      swiper(ref="slider" :options="sliderOptions")
+        swiper-slide(v-for="review in reviews" :key="review.id")
+          .slider-container
+            .slider__item-pic 
+              +icon("quote", "slider__item-icon")
+            .quote 
+              .quote__text 
+                p {{review.comment}}
+              .quote__user
+                .user-display 
+                  .user-display__avatar 
+                    .user-display__avatar-style 
+                      img(:src="review.photo").user-display__pic
+                  .user-display__data
+                    .user-display__name {{review.author}} 
+                    .user-display__position {{review.position}}

@@ -3,13 +3,14 @@
   width: 166px;
   height: 166px;
 
-  &__item {
-    margin-right: 60px;
-    margin-bottom: 53px;
+  @include desktop {
+    width: 132px;
+    height: 132px;
+  }
 
-    &:last-child {
-      margin-right: 0;
-    }
+  @include phones {
+    width: 115px;
+    height: 115px;
   }
 
   &__circle {
@@ -36,5 +37,9 @@
     font-size: 18px;
     color: rgba($text-color, .5);
     padding: 14px;
+
+    @include phones {
+      font-size: 15px;
+    }
   }
 }
