@@ -1,6 +1,6 @@
 <template lang="pug">
   .headline-component
-    .container1.headline-container
+    .container.headline-container
       slot
       .title {{title}}
       .buttons 
