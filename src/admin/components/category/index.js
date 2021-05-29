@@ -1,1 +1,1 @@
-import {default} from './category.vue';
+export {default} from './category.vue';

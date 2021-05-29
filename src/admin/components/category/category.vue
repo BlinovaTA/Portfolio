@@ -5,17 +5,21 @@
       v-model="title"
       editModeByDefault
     )
-  
+    ul.skills(slot="content")
+      li.item
+        skill
 </template>
 
 <script>
 import card from "../card";
 import editLine from "../editLine";
+import skill from "../skill";
 
 export default {
   components: {
     card,
-    editLine
+    editLine,
+    skill
   },
   data() {
     return {
