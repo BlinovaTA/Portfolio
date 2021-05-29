@@ -3,14 +3,14 @@
     edit-line(
       slot="title"
       v-model="title"
-      editModeByDefault
+      :editModeByDefault="empty"
     )
     template(slot="content")
-      ul.skills
+      ul.skills(v-if="empty === false")
         li.item(v-for="skill in skills" :key="skill.id")
           skill(:skill="skill")
       .bottom-line
-        skillAddLine
+        skillAddLine(:blocked="empty")
 </template>
 
 <script>
@@ -31,6 +31,9 @@ export default {
     editLine,
     skill,
     skillAddLine
+  },
+  props: {
+    empty: Boolean
   },
   data() {
     return {

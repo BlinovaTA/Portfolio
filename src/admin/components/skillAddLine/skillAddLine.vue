@@ -1,5 +1,5 @@
 <template lang="pug">
-  .skill-add-line-component(:class={blocked: blocked})
+  .skill-add-line-component(:class="{blocked: blocked}")
     .title
       app-input(placeholder="Новый навык")
     .percent

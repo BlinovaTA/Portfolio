@@ -13,7 +13,7 @@
           )
         ul.skills
           li.item
-            category
+            category(empty)
           li.item
             category
           li.item
