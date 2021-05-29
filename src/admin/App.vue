@@ -2,16 +2,19 @@
   .app-container
     headline
       user
+    navigation
 </template>
 
 <script>
 import headline from "./components/headline";
 import user from "./components/user";
+import navigation from "./components/navigation";
 
 export default {
   components: {
     headline,
-    user
+    user,
+    navigation
   },
 }
 </script>
