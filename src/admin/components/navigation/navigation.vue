@@ -1,20 +1,21 @@
 <template lang="pug">
   nav.navigation-component
-    ul.list
-      li.item(
-        v-for="link in links" 
-        :key="link.id"
-      )
-        a(
-          :href="`/${link.alias}`"
-          :class="['link', {active: link.active}]"
-        ) {{link.title}}
+    .container
+      ul.list
+        li.item(
+          v-for="link in links" 
+          :key="link.id"
+        )
+          a(
+            :href="`/${link.alias}`"
+            :class="['link', {active: link.active}]"
+          ) {{link.title}}
 </template>
 
 <script>
 const links = [
-  {id: 0, title: "Обо мне", alias: "about", active: false},
-  {id: 0, title: "Работы", alias: "works", active: true},
+  {id: 0, title: "Обо мне", alias: "about", active: true},
+  {id: 0, title: "Работы", alias: "works", active: false},
   {id: 0, title: "Отзывы", alias: "reviews", active: false}
 ];
 
