@@ -6,14 +6,20 @@
       editModeByDefault
     )
     ul.skills(slot="content")
-      li.item
-        skill
+      li.item(v-for="skill in skills" :key="skill.id")
+        skill(:skill="skill")
 </template>
 
 <script>
 import card from "../card";
 import editLine from "../editLine";
 import skill from "../skill";
+
+const skills = [
+  {id: 0, title: "Html", percent: 80},
+  {id: 0, title: "Css", percent: 20},
+  {id: 0, title: "Javascript", percent: 50},
+];
 
 export default {
   components: {
@@ -23,7 +29,8 @@ export default {
   },
   data() {
     return {
-      title: ""   
+      title: "",
+      skills
     }
   }
 }
