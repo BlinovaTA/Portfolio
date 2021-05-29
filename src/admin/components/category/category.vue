@@ -9,9 +9,15 @@
     template(slot="content")
       ul.skills(v-if="empty === false")
         li.item(v-for="skill in skills" :key="skill.id")
-          skill(:skill="skill")
+          skill(
+            :skill="skill"
+            @remove="$emit('remove-skill', $event)"
+            @approve="$emit('edit-skill', $event)"
+          )
       .bottom-line
-        skillAddLine(:blocked="empty")
+        skillAddLine(
+          :blocked="empty"
+        )
 </template>
 
 <script>
@@ -40,7 +46,7 @@ export default {
   },
   data() {
     return {
-      categoryTitle: this.title
+      categoryTitle: this.title,
     }
   }
 }

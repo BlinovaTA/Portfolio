@@ -23,6 +23,8 @@
             category(
               :title="category.category"
               :skills="category.skills"
+              @remove-skill=""
+              @edit-skill=""
             )
 </template>
 

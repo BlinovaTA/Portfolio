@@ -3,15 +3,13 @@
     .title {{skill.title}}
     .percent {{skill.percent}}
     .buttons
-      icon(
+      icon.btn(
         symbol="pencil"
-        class="btn"
         grayscale
         @click="editmode=true"
       )
-      icon(
+      icon.btn(
         symbol="trash"
-        class="btn"
         grayscale
         @click="$emit('remove', skill.id)"
       )
@@ -21,6 +19,7 @@
       app-input(
         noSidePaddings
         v-model="currentSkill.title"
+        :errorMessage="titleError"
       )
     .percent
       app-input(
@@ -31,15 +30,13 @@
         v-model="currentSkill.percent"
       )
     .buttons
-      icon(
+      icon.btn(
         symbol="tick"
-        class="btn"
-        @click="$emit('approve', currentSkill)"
+        @click="approveSkill"
       )
-      icon(
+      icon.btn(
         symbol="cross"
-        class="btn"
-        @click="editmode=false"
+        @click="closeEditMode"
       )
 </template>
 
@@ -63,6 +60,35 @@ export default {
     return {
       editmode: false,
       currentSkill: {
+        id: this.skill.id,
+        title: this.skill.title,
+        percent: this.skill.percent
+      },
+      titleError: ""
+    }
+  },
+  methods: {
+    approveSkill() {
+      this.titleError = "";
+
+      if (this.currentSkill.percent === "") {
+        this.currentSkill.percent = 0;
+
+        return;
+      }
+
+      if (this.currentSkill.title.trim() === "") {
+        this.titleError = "Заполните поле";
+        
+        return;
+      }
+
+      this.$emit('approve', this.currentSkill);
+    },
+    closeEditMode() {
+      this.titleError = "";
+      this.editmode = false;
+      this.currentSkill = {
         id: this.skill.id,
         title: this.skill.title,
         percent: this.skill.percent

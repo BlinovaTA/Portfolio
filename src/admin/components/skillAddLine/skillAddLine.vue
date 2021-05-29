@@ -1,7 +1,9 @@
 <template lang="pug">
   .skill-add-line-component(:class="{blocked: blocked}")
     .title
-      app-input(placeholder="Новый навык")
+      app-input(
+        placeholder="Новый навык"
+      )
     .percent
       app-input(
         type="number" 
@@ -10,7 +12,9 @@
         maxlength="3"
       )
     .button
-      round-button(type="round")
+      round-button(
+        type="round"
+      )
 </template>
 
 <script>
@@ -24,7 +28,7 @@ export default {
   components: {
     appInput: input,
     roundButton: button,
-  },
+  }
 };
 </script>
 
