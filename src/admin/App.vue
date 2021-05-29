@@ -3,18 +3,28 @@
     headline
       user
     navigation
+    .page-content
+      .container
+        .header
+          .title Блок "Обо мне"
+          iconed-button(
+            type="iconed" 
+            title="Добавить группу"
+          )
 </template>
 
 <script>
 import headline from "./components/headline";
 import user from "./components/user";
 import navigation from "./components/navigation";
+import button from "./components/button";
 
 export default {
   components: {
     headline,
     user,
-    navigation
+    navigation,
+    iconedButton: button
   },
 }
 </script>
