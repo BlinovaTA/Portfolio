@@ -2,7 +2,7 @@
   card(slim)
     edit-line(
       slot="title"
-      v-model="title"
+      v-model="categoryTitle"
       :editModeByDefault="empty"
     )
     template(slot="content")
@@ -19,12 +19,6 @@ import editLine from "../editLine";
 import skill from "../skill";
 import skillAddLine from "../skillAddLine";
 
-const skills = [
-  {id: 0, title: "Html", percent: 80},
-  {id: 0, title: "Css", percent: 20},
-  {id: 0, title: "Javascript", percent: 50},
-];
-
 export default {
   components: {
     card,
@@ -33,12 +27,19 @@ export default {
     skillAddLine
   },
   props: {
-    empty: Boolean
+    empty: Boolean,
+    title: {
+      type: String,
+      default: ""
+    },
+    skills: {
+      type: Array,
+      default: () => []
+    }
   },
   data() {
     return {
-      title: "",
-      skills
+      categoryTitle: this.title
     }
   }
 }

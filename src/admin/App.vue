@@ -12,12 +12,11 @@
             title="Добавить группу"
           )
         ul.skills
-          li.item
-            category(empty)
-          li.item
-            category
-          li.item
-            category
+          li.item(v-for="category in categories" :key="category.id")
+            category(
+              :title="category.category"
+              :skills="category.skills"
+            )
 </template>
 
 <script>
@@ -35,6 +34,14 @@ export default {
     iconedButton: button,
     category
   },
+  data() {
+    return {
+      categories: []
+    }
+  },
+  created() {
+    this.categories = require("./data/categories.json");
+  }
 }
 </script>
 
