@@ -10,8 +10,15 @@
           iconed-button(
             type="iconed" 
             title="Добавить группу"
+            @click="emptyCategoryInShown = true"
+            v-if="!emptyCategoryInShown"
           )
         ul.skills
+          li.item(v-if="emptyCategoryInShown")
+            category(
+              empty
+              @remove="emptyCategoryInShown = false"
+            )
           li.item(v-for="category in categories" :key="category.id")
             category(
               :title="category.category"
@@ -36,7 +43,8 @@ export default {
   },
   data() {
     return {
-      categories: []
+      categories: [],
+      emptyCategoryInShown: false
     }
   },
   created() {

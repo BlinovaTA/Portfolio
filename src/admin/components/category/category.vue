@@ -4,6 +4,7 @@
       slot="title"
       v-model="categoryTitle"
       :editModeByDefault="empty"
+      @remove="$emit('remove', $event)"
     )
     template(slot="content")
       ul.skills(v-if="empty === false")
