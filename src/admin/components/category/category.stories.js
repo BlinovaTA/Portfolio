@@ -1,4 +1,9 @@
 import category from './category.vue';
+import {action} from "@storybook/addon-actions";
+
+const methods = {
+  onRemove: action("onRemove")
+};
 
 export default {
   title: "category",
@@ -7,11 +12,28 @@ export default {
   }
 };
 
+const skills = [
+  {id: 0, title: "Html", percent :80},
+  {id: 1, title: "Css", percent :40},
+  {id: 2, title: "Javascript", percent :50},
+];
+
 export const defaultView = () => ({
   components: {
     category
   },
+  data() {
+    return {
+      title: "Frontend",
+      skills
+    }
+  },
   template: `
-    <category/>
-  `
+    <category
+      :title="title"
+      :skills="skills"
+      @remove="onRemove"
+    />
+  `,
+  methods
 });
