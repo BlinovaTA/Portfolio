@@ -5,15 +5,19 @@
       v-model="title"
       editModeByDefault
     )
-    ul.skills(slot="content")
-      li.item(v-for="skill in skills" :key="skill.id")
-        skill(:skill="skill")
+    template(slot="content")
+      ul.skills
+        li.item(v-for="skill in skills" :key="skill.id")
+          skill(:skill="skill")
+      .bottom-line
+        skillAddLine
 </template>
 
 <script>
 import card from "../card";
 import editLine from "../editLine";
 import skill from "../skill";
+import skillAddLine from "../skillAddLine";
 
 const skills = [
   {id: 0, title: "Html", percent: 80},
@@ -25,7 +29,8 @@ export default {
   components: {
     card,
     editLine,
-    skill
+    skill,
+    skillAddLine
   },
   data() {
     return {
@@ -35,3 +40,5 @@ export default {
   }
 }
 </script>
+
+<style lang="postcss" scoped src="./category.pcss"></style>
