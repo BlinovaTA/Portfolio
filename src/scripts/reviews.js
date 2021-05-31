@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper';
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
 import 'swiper/swiper-bundle.css';
 
 new Vue({
@@ -53,8 +53,6 @@ new Vue({
     checkArrows(e) {
       this.disabledNext = this.$refs.slider.$swiper.activeIndex === this.$refs.slider.$swiper.slides.length - this.$refs.slider.$swiper.params.slidesPerView;
       this.disabledPrev = this.$refs.slider.$swiper.activeIndex === 0;
-
-      console.log(this.$refs.slider.$swiper)
     }
   },
   created() {

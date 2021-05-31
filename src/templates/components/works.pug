@@ -4,6 +4,7 @@ script(type="text/x-template")#preview-container
       :currentWork="currentWork",
       :works="works",
       :currentIndex="currentIndex",
+      :disabledButtons="disabledButtons"
       @slide="slide"
     )
     info(
@@ -21,7 +22,8 @@ script(type="text/x-template")#preview-display
         )    
       .works__btns
         btns(
-          @slide="$emit('slide', $event)"
+          @slide="$emit('slide', $event)",
+          :disabledButtons="disabledButtons"
         )
 
 script(type="text/x-template")#preview-thumbs
@@ -38,11 +40,13 @@ script(type="text/x-template")#preview-btns
     button(
       type="button"
       @click="$emit('slide', 'next')"
+      :disabled="disabledButtons.next"
     ).square-btns__item.square-btns__item--next
       +icon("arrow-down", "square-btns__icon")
     button(
       type="button"
       @click="$emit('slide', 'prev')"
+      :disabled="disabledButtons.prev"
     ).square-btns__item.square-btns__item--prev 
       +icon("arrow-down", "square-btns__icon") 
 

@@ -9,6 +9,9 @@ const thumbs = {
 };
 
 const btns = {
+  props: [
+    "disabledButtons"
+  ],
   template: "#preview-btns"
 };
 
@@ -16,7 +19,8 @@ const display = {
   props: [
     "currentWork",
     "works",
-    "currentIndex"
+    "currentIndex",
+    "disabledButtons"
   ],
   template: "#preview-display",
   components: {
@@ -55,7 +59,11 @@ new Vue({
   data() {
     return {
       works: [],
-      currentIndex: 0
+      currentIndex: 0,
+      disabledButtons: {
+        next: false,
+        prev: true
+      }      
     }
   },
   computed: {
@@ -89,7 +97,8 @@ new Vue({
       });
     },
     slide(direction) {
-      const lastItem = this.works[this.works.length - 1];
+      const count = this.works.length - 1;
+      const lastItem = this.works[count];
 
       switch (direction) {
         case "next":
@@ -106,6 +115,11 @@ new Vue({
 
           break;
       }
+
+      this.disabledButtons = {
+        next: this.currentIndex === count,
+        prev: this.currentIndex === 0
+      };
     }
   },
   created() {
