@@ -5,11 +5,15 @@ Vue.use(VueRouter);
 
 import login from "./pages/login";
 import about from "./pages/about";
+import header from "./components/header";
 
 const routes = [
   {
     path: "/",
-    component: about
+    components: {
+      default: about,
+      header
+    }
   },
   {
     path: "/login",
@@ -17,4 +21,4 @@ const routes = [
   }
 ];
 
-export default new VueRouter({ routes, mode: "history" });
+export default new VueRouter({ routes });
