@@ -18,6 +18,21 @@
     &:focus {
       outline: none;
     }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: default;
+      color: $text-color;
+
+      &:hover {
+        cursop: default;
+        color: $text-color;
+
+        .square-btns__icon {
+          fill: #717883;
+        }
+      }
+    }
   }
 
   &__item--next {
