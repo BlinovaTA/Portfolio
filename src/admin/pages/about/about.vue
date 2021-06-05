@@ -15,6 +15,7 @@
             category(
               empty
               @remove="emptyCategoryInShown = false"
+              @approve="createCategory"
             )
           li.item(v-for="category in categories" :key="category.id")
             category(
@@ -28,6 +29,7 @@
 <script>
 import button from "../../components/button";
 import category from "../../components/category";
+import { mapActions } from "vuex";
 
 export default {
   components: {
@@ -42,6 +44,14 @@ export default {
   },
   created() {
     this.categories = require("../../data/categories.json");
+  },
+  methods: {
+    ...mapActions({
+      createCategoryAction: "categories/create"
+    }),
+    createCategory(categoryTitle) {
+      this.createCategoryAction(categoryTitle);
+    }
   }
 };
 </script>
