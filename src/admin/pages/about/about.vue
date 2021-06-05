@@ -1,7 +1,9 @@
 <template lang="pug">
   .about-page-component
     .page-content
-      .container
+      .container(v-if="loading") Загрузка...
+      .container(v-else-if="error") Произошла ошибка
+      .container(v-else) 
         .header
           .title Блок "Обо мне"
           iconed-button(
@@ -43,7 +45,9 @@ export default {
   },
   computed: {
     ...mapState("categories", {
-      categories: state => state.data
+      categories: state => state.data,
+      loading: state => state.loading,
+      error: state => state.error
     })
   },
   methods: {
