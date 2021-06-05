@@ -29,7 +29,7 @@
 <script>
 import button from "../../components/button";
 import category from "../../components/category";
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   components: {
@@ -38,20 +38,25 @@ export default {
   },
   data() {
     return {
-      categories: [],
       emptyCategoryInShown: false
     };
   },
-  created() {
-    this.categories = require("../../data/categories.json");
+  computed: {
+    ...mapState("categories", {
+      categories: state => state.data
+    })
   },
   methods: {
     ...mapActions({
-      createCategoryAction: "categories/create"
+      createCategoryAction: "categories/create",
+      fetchCategoriesAction: "categories/fetch"
     }),
     createCategory(categoryTitle) {
       this.createCategoryAction(categoryTitle);
     }
+  },
+  created() {
+    this.fetchCategoriesAction();
   }
 };
 </script>
