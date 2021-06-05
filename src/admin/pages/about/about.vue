@@ -76,8 +76,8 @@ export default {
     editSkill() {
       this.editSkillAction();
     },
-    removeSkill() {
-      this.removeSkillAction();
+    removeSkill(skill) {
+      this.removeSkillAction(skill);
     }
   },
   created() {

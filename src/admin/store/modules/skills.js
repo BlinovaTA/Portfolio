@@ -18,8 +18,13 @@ export default {
     edit() {
       console.log("edit");
     },
-    remove() {
-      console.log("remove");
+    async remove({commit}, removableSkill) {
+      try {
+        const { data } = await this.$axios.delete(`/skills/${removableSkill.id}`);
+        commit("categories/REMOVE_SKILL", removableSkill, { root: true });
+      } catch (error) {
+        throw new Error("Ошибка");
+      }
     }
   }
 }

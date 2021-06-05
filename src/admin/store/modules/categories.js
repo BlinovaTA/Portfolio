@@ -17,7 +17,16 @@ export default {
         }
 
         return category;
-      })
+      });
+    },
+    REMOVE_SKILL: (state, removableSkill) => {
+      state.data = state.data.map(category => {
+        if (removableSkill.category === category.id) {
+          category.skills = category.skills.filter(skill => skill.id !== removableSkill.id)
+        }
+
+        return category;
+      });
     }
   },
   actions: {

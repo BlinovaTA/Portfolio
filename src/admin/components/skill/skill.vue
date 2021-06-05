@@ -11,7 +11,7 @@
       icon.btn(
         symbol="trash"
         grayscale
-        @click="$emit('remove', skill.id)"
+        @click="$emit('remove', currentSkill)"
       )
 
   .skill-component(v-else)
@@ -62,7 +62,8 @@ export default {
       currentSkill: {
         id: this.skill.id,
         title: this.skill.title,
-        percent: this.skill.percent
+        percent: this.skill.percent,
+        category: this.skill.category
       },
       titleError: ""
     }
