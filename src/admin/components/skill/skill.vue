@@ -19,7 +19,7 @@
       app-input(
         noSidePaddings
         v-model="currentSkill.title"
-        :errorMessage="titleError"
+        :errorMessage="validation.firstError('currentSkill.title')"
       )
     .percent
       app-input(
@@ -28,6 +28,7 @@
         max="100"
         maxlength="3"
         v-model="currentSkill.percent"
+        :errorMessage="validation.firstError('currentSkill.percent')"
       )
     .buttons
       icon.btn(
@@ -43,8 +44,21 @@
 <script>
 import input from "../input";
 import icon from "../icon";
+import { Validator, mixin as ValidatorMixin } from "simple-vue-validator";
 
 export default {
+  mixins: [ValidatorMixin],
+  validators: {
+    "currentSkill.title": value => {
+      return Validator.value(value).required("Не может быть пустым");
+    },
+    "currentSkill.percent": value => {
+      return Validator.value(value)
+        .integer("Должно быть числом")
+        .between(0, 100, "Некорректное значение")
+        .required("Не может быть пустым")
+    }
+  },
   components: {
     appInput: input,
     icon  
@@ -64,30 +78,16 @@ export default {
         title: this.skill.title,
         percent: this.skill.percent,
         category: this.skill.category
-      },
-      titleError: ""
+      }
     }
   },
   methods: {
-    approveSkill() {
-      this.titleError = "";
-
-      if (this.currentSkill.percent === "") {
-        this.currentSkill.percent = 0;
-
-        return;
-      }
-
-      if (this.currentSkill.title.trim() === "") {
-        this.titleError = "Заполните поле";
-        
-        return;
-      }
+    async approveSkill() {
+      if (!(await this.$validate())) return;
 
       this.$emit('approve', this.currentSkill);
     },
     closeEditMode() {
-      this.titleError = "";
       this.editmode = false;
       this.currentSkill = {
         id: this.skill.id,
