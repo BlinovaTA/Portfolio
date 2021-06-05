@@ -42,6 +42,9 @@ export default {
       }
 
       state.data = state.data.map(findCategory);
+    },
+    REMOVE_CATEGORY: (state, removableCategoryId) => {
+      state.data = state.data.filter(category => category.id !== removableCategoryId)
     }
   },
   actions: {
@@ -72,5 +75,13 @@ export default {
         commit("SET_LOADING", false);
       }
     },
+    async remove({commit}, removableCategoryId) {
+      try {
+        const { data } = await this.$axios.delete(`/categories/${removableCategoryId}`);
+        commit("REMOVE_CATEGORY", removableCategoryId);
+      } catch (error) {
+        throw new Error(error.response.data.error);
+      }
+    }
   }
 };

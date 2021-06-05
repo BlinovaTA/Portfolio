@@ -25,6 +25,7 @@
               @add-skill="addSkill($event, category.id)"
               @edit-skill="editSkill"
               @remove-skill="removeSkill"
+              @remove="removeCategory($event, category.id)"
             )
 </template>
 
@@ -53,6 +54,7 @@ export default {
     ...mapActions({
       createCategoryAction: "categories/create",
       fetchCategoriesAction: "categories/fetch",
+      removeCategoriesAction: "categories/remove",
       addSkillAction: "skills/add",
       editSkillAction: "skills/edit",
       removeSkillAction: "skills/remove",
@@ -130,6 +132,21 @@ export default {
 
         this.showTooltip({
           text: "Категории загружены",
+          type: "success"
+        })
+      } catch (error) {
+        this.showTooltip({
+          text: error.message,
+          type: "error"
+        })
+      }
+    },
+    async removeCategory($event, id) {
+      try {
+        await this.removeCategoriesAction(id);
+
+        this.showTooltip({
+          text: "Категория удалена",
           type: "success"
         })
       } catch (error) {

@@ -23,7 +23,7 @@
           <icon symbol="tick" @click="onApprove"></icon>
         </div>
         <div class="button-icon">
-          <icon symbol="cross" @click="$emit('remove')"></icon>
+          <icon symbol="cross" @click="onRemove"></icon>
         </div>
       </div>
     </div>
@@ -66,6 +66,9 @@ export default {
       } else {
         this.$emit("approve", this.value);
       }
+    },
+    onRemove() {
+      this.$emit('remove');
     }
   },
   components: {
