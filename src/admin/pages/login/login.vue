@@ -19,7 +19,10 @@
             :errorMessage="validation.firstError('user.password')"
           )
         .btn
-          app-button(title="Отправить")
+          app-button(
+            title="Отправить"
+            :disabled="isSubmitDisabled"
+          )
 </template>
 
 <script>
@@ -42,25 +45,32 @@ export default {
     return {
       user: {
         name: "",
-        password: ""
-      }
-    }
+        password: "",
+      },
+      isSubmitDisabled: false
+    };
   },
   methods: {
     handleSubmit() {
       this.$validate().then(isValid => {
         if (!isValid) return;
 
-        axios.post('https://webdev-api.loftschool.com/login', this.user).then(response => {
-          const token = response.data.token;
-          localStorage.setItem("token", token);
-          axios.defaults.headers["Authorization"] = `Bearer ${token}`;
-          this.$router.replace('/');
-        });
-      })
-    }
-  }
-}
+        this.isSubmitDisabled = true;
+
+        axios
+          .post("https://webdev-api.loftschool.com/login", this.user)
+          .then((response) => {
+            const token = response.data.token;
+            localStorage.setItem("token", token);
+            axios.defaults.headers["Authorization"] = `Bearer ${token}`;
+            this.$router.replace("/");
+          })
+          .catch((error) => console.log(error))
+          .finally(() => (this.isSubmitDisabled = false));
+      });
+    },
+  },
+};
 </script>
 
 <style lang="postcss" scoped src="./login.pcss"></style>
