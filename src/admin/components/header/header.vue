@@ -18,5 +18,3 @@ export default {
   }
 };
 </script>
-
-<style lang="postcss" scoped src="./header.pcss"></style>
