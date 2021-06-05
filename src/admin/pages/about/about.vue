@@ -73,8 +73,10 @@ export default {
       skill.title = "";
       skill.percent = "";
     },
-    editSkill(skill) {
-      this.editSkillAction(skill);
+    async editSkill(skill) {
+      await this.editSkillAction(skill);
+
+      skill.editmode = false;
     },
     removeSkill(skill) {
       this.removeSkillAction(skill);

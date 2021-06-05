@@ -1,12 +1,12 @@
 <template lang="pug">
-  .skill-component(v-if="!editmode")
+  .skill-component(v-if="!currentSkill.editmode")
     .title {{skill.title}}
     .percent {{skill.percent}}
     .buttons
       icon.btn(
         symbol="pencil"
         grayscale
-        @click="editmode=true"
+        @click="currentSkill.editmode=true"
       )
       icon.btn(
         symbol="trash"
@@ -72,12 +72,12 @@ export default {
   },
   data() {
     return {
-      editmode: false,
       currentSkill: {
         id: this.skill.id,
         title: this.skill.title,
         percent: this.skill.percent,
-        category: this.skill.category
+        category: this.skill.category,
+        editmode: false
       }
     }
   },
@@ -88,11 +88,11 @@ export default {
       this.$emit('approve', this.currentSkill);
     },
     closeEditMode() {
-      this.editmode = false;
       this.currentSkill = {
         id: this.skill.id,
         title: this.skill.title,
-        percent: this.skill.percent
+        percent: this.skill.percent,
+        editmode: false
       }
     }
   }
