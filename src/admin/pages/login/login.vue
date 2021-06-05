@@ -65,7 +65,7 @@ export default {
             axios.defaults.headers["Authorization"] = `Bearer ${token}`;
             this.$router.replace("/");
           })
-          .catch((error) => console.log(error))
+          .catch((error) => console.log(error.response.data.error))
           .finally(() => (this.isSubmitDisabled = false));
       });
     },
