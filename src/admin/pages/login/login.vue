@@ -29,7 +29,7 @@
 import appInput from "../../components/input";
 import appButton from "../../components/button";
 import { Validator, mixin as ValidatorMixin } from "simple-vue-validator";
-import axios from "axios";
+import $axios from "../../requests";
 
 export default {
   mixins: [ValidatorMixin],
@@ -57,12 +57,12 @@ export default {
 
         this.isSubmitDisabled = true;
 
-        axios
-          .post("https://webdev-api.loftschool.com/login", this.user)
+        $axios
+          .post("/login", this.user)
           .then((response) => {
             const token = response.data.token;
             localStorage.setItem("token", token);
-            axios.defaults.headers["Authorization"] = `Bearer ${token}`;
+            $axios.defaults.headers["Authorization"] = `Bearer ${token}`;
             this.$router.replace("/");
           })
           .catch((error) => console.log(error.response.data.error))
