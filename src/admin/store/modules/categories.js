@@ -45,6 +45,15 @@ export default {
     },
     REMOVE_CATEGORY: (state, removableCategoryId) => {
       state.data = state.data.filter(category => category.id !== removableCategoryId)
+    },
+    EDIT_CATEGORY: (state, {title, id}) => {
+      state.data = state.data.map(category => {
+        if (category.id === id) {
+          category.category = title;
+        }
+
+        return category;
+      })
     }
   },
   actions: {
@@ -79,6 +88,14 @@ export default {
       try {
         const { data } = await this.$axios.delete(`/categories/${removableCategoryId}`);
         commit("REMOVE_CATEGORY", removableCategoryId);
+      } catch (error) {
+        throw new Error(error.response.data.error);
+      }
+    },
+    async edit({commit}, {title, id}) {
+      try {
+        const { data } = await this.$axios.post(`/categories/${id}`, { title });
+        commit("EDIT_CATEGORY", {title, id});
       } catch (error) {
         throw new Error(error.response.data.error);
       }
