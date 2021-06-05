@@ -1,11 +1,5 @@
 export default {
   namespaced: true,
-  state: {
-
-  },
-  mutation: {
-    
-  },
   actions: {
     async add({commit}, skill) {
       try {
@@ -15,8 +9,13 @@ export default {
         throw new Error("Ошибка");
       }
     },
-    edit() {
-      console.log("edit");
+    async edit({commit}, editableSkill) {
+      try {
+        const { data } = await this.$axios.post(`/skills/${editableSkill.id}`, editableSkill);
+        commit("categories/EDIT_SKILL", data.skill, { root: true });
+      } catch (error) {
+        throw new Error("Ошибка");
+      }
     },
     async remove({commit}, removableSkill) {
       try {

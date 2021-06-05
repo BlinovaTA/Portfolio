@@ -73,8 +73,8 @@ export default {
       skill.title = "";
       skill.percent = "";
     },
-    editSkill() {
-      this.editSkillAction();
+    editSkill(skill) {
+      this.editSkillAction(skill);
     },
     removeSkill(skill) {
       this.removeSkillAction(skill);
