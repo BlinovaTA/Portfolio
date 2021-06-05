@@ -51,23 +51,25 @@ export default {
     };
   },
   methods: {
-    handleSubmit() {
-      this.$validate().then(isValid => {
-        if (!isValid) return;
+    async handleSubmit() {
+      if (!(await this.$validate())) {
+        return;
+      }
 
-        this.isSubmitDisabled = true;
+      this.isSubmitDisabled = true;
 
-        $axios
-          .post("/login", this.user)
-          .then((response) => {
-            const token = response.data.token;
-            localStorage.setItem("token", token);
-            $axios.defaults.headers["Authorization"] = `Bearer ${token}`;
-            this.$router.replace("/");
-          })
-          .catch((error) => console.log(error.response.data.error))
-          .finally(() => (this.isSubmitDisabled = false));
-      });
+      try {
+        const response = await $axios.post("/login", this.user);
+
+        const token = response.data.token;
+        localStorage.setItem("token", token);
+        $axios.defaults.headers["Authorization"] = `Bearer ${token}`;
+        this.$router.replace("/");
+      } catch (error) {
+        console.log(error.response.data.error)
+      } finally {
+        this.isSubmitDisabled = false
+      }
     },
   },
 };
