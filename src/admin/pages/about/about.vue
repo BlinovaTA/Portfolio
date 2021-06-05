@@ -23,8 +23,9 @@
             category(
               :title="category.category"
               :skills="category.skills"
-              @remove-skill=""
-              @edit-skill=""
+              @add-skill="addSkill($event, category.id)"
+              @edit-skill="editSkill"
+              @remove-skill="removeSkill"
             )
 </template>
 
@@ -53,7 +54,10 @@ export default {
   methods: {
     ...mapActions({
       createCategoryAction: "categories/create",
-      fetchCategoriesAction: "categories/fetch"
+      fetchCategoriesAction: "categories/fetch",
+      addSkillAction: "skills/add",
+      editSkillAction: "skills/edit",
+      removeSkillAction: "skills/remove"
     }),
     async createCategory(categoryTitle) {
       try {
@@ -62,6 +66,18 @@ export default {
       } catch (error) {
         console.log(error.message);
       }
+    },
+    async addSkill(skill, id) {
+      await this.addSkillAction({...skill, category: id});
+
+      skill.title = "";
+      skill.percent = "";
+    },
+    editSkill() {
+      this.editSkillAction();
+    },
+    removeSkill() {
+      this.removeSkillAction();
     }
   },
   created() {

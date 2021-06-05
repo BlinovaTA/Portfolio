@@ -9,7 +9,16 @@ export default {
     SET_CATEGORIES: (state, categories) => (state.data = categories),
     SET_LOADING: (state, loading) => (state.loading = loading),
     SET_ERROR: (state, error) => (state.error = error),
-    ADD_CATEGORY: (state, category) => state.data.unshift(category)
+    ADD_CATEGORY: (state, category) => state.data.unshift(category),
+    ADD_SKILL: (state, newSkill) => {
+      state.data = state.data.map(category => {
+        if (newSkill.category === category.id) {
+          category.skills.push(newSkill);
+        }
+
+        return category;
+      })
+    }
   },
   actions: {
     async create({commit}, title) {

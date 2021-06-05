@@ -18,6 +18,7 @@
       .bottom-line
         skillAddLine(
           :blocked="empty"
+          @add-skill="$emit('add-skill', $event)"
         )
 </template>
 
