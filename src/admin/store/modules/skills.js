@@ -6,7 +6,7 @@ export default {
         const { data } = await this.$axios.post('/skills', skill);
         commit("categories/ADD_SKILL", data, { root: true });
       } catch (error) {
-        throw new Error("Ошибка");
+        throw new Error(error.response.data.error);
       }
     },
     async edit({commit}, editableSkill) {
@@ -14,7 +14,7 @@ export default {
         const { data } = await this.$axios.post(`/skills/${editableSkill.id}`, editableSkill);
         commit("categories/EDIT_SKILL", data.skill, { root: true });
       } catch (error) {
-        throw new Error("Ошибка");
+        throw new Error(error.response.data.error);
       }
     },
     async remove({commit}, removableSkill) {
@@ -22,7 +22,7 @@ export default {
         const { data } = await this.$axios.delete(`/skills/${removableSkill.id}`);
         commit("categories/REMOVE_SKILL", removableSkill, { root: true });
       } catch (error) {
-        throw new Error("Ошибка");
+        throw new Error(error.response.data.error);
       }
     }
   }

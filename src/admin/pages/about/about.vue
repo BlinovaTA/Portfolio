@@ -2,7 +2,6 @@
   .about-page-component
     .page-content
       .container(v-if="loading") Загрузка...
-      .container(v-else-if="error") Произошла ошибка
       .container(v-else) 
         .header
           .title Блок "Обо мне"
@@ -47,8 +46,7 @@ export default {
   computed: {
     ...mapState("categories", {
       categories: state => state.data,
-      loading: state => state.loading,
-      error: state => state.error
+      loading: state => state.loading
     })
   },
   methods: {
@@ -57,33 +55,93 @@ export default {
       fetchCategoriesAction: "categories/fetch",
       addSkillAction: "skills/add",
       editSkillAction: "skills/edit",
-      removeSkillAction: "skills/remove"
+      removeSkillAction: "skills/remove",
+      showTooltip: "tooltips/show"
     }),
     async createCategory(categoryTitle) {
       try {
         await this.createCategoryAction(categoryTitle);
         this.emptyCategoryInShown = false;
+
+        this.showTooltip({
+          text: "Категория добавлена",
+          type: "success"
+        })
       } catch (error) {
-        console.log(error.message);
+        this.showTooltip({
+          text: error.message,
+          type: "error"
+        })
       }
     },
     async addSkill(skill, id) {
-      await this.addSkillAction({...skill, category: id});
+      try {
+        await this.addSkillAction({...skill, category: id});
 
-      skill.title = "";
-      skill.percent = "";
+        skill.title = "";
+        skill.percent = "";
+
+        this.showTooltip({
+          text: "Скилл добавлен",
+          type: "success"
+        })
+      } catch (error) {
+        this.showTooltip({
+          text: error.message,
+          type: "error"
+        })
+      }
     },
     async editSkill(skill) {
-      await this.editSkillAction(skill);
+      try {
+        await this.editSkillAction(skill);
 
-      skill.editmode = false;
+        skill.editmode = false;
+        
+        this.showTooltip({
+          text: "Скилл отредактирован",
+          type: "success"
+        })
+      } catch (error) {
+        this.showTooltip({
+          text: error.message,
+          type: "error"
+        })
+      }
     },
-    removeSkill(skill) {
-      this.removeSkillAction(skill);
+    async removeSkill(skill) {
+      try {
+        await this.removeSkillAction(skill);
+
+        this.showTooltip({
+          text: "Скилл удален",
+          type: "success"
+        })
+      } catch (error) {
+        this.showTooltip({
+          text: error.message,
+          type: "error"
+        })
+      }
+    },
+    async fetchCategories() {
+      try {
+        await this.fetchCategoriesAction();
+
+        this.showTooltip({
+          text: "Категории загружены",
+          type: "success"
+        })
+      } catch (error) {
+        this.showTooltip({
+          text: error.message,
+          type: "error"
+        })
+      }
     }
   },
   created() {
-    this.fetchCategoriesAction();
+    this.fetchCategories();
   }
 };
 </script>
