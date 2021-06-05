@@ -51,8 +51,13 @@ export default {
       createCategoryAction: "categories/create",
       fetchCategoriesAction: "categories/fetch"
     }),
-    createCategory(categoryTitle) {
-      this.createCategoryAction(categoryTitle);
+    async createCategory(categoryTitle) {
+      try {
+        await this.createCategoryAction(categoryTitle);
+        this.emptyCategoryInShown = false;
+      } catch (error) {
+        console.log(error.message);
+      }
     }
   },
   created() {
