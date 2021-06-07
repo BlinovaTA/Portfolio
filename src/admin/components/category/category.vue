@@ -5,6 +5,7 @@
       v-model="categoryTitle"
       :editModeByDefault="empty"
       @remove="$emit('remove', $event)"
+      @approve="$emit('approve', $event)"
     )
     template(slot="content")
       ul.skills(v-if="empty === false")
@@ -17,6 +18,7 @@
       .bottom-line
         skillAddLine(
           :blocked="empty"
+          @add-skill="$emit('add-skill', $event)"
         )
 </template>
 

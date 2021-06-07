@@ -3,8 +3,8 @@
     .title
       app-input(
         placeholder="Новый навык"
-        :errorMessage="titleError"
         v-model="skill.title"
+        :errorMessage="validation.firstError('skill.title')"
       )
     .percent
       app-input(
@@ -13,6 +13,7 @@
         max="100" 
         maxlength="3"
         v-model="skill.percent"
+        :errorMessage="validation.firstError('skill.percent')"
       )
     .button
       round-button(
@@ -24,8 +25,21 @@
 <script>
 import input from "../input";
 import button from "../button";
+import { Validator, mixin as ValidatorMixin } from "simple-vue-validator";
 
 export default {
+  mixins: [ValidatorMixin],
+  validators: {
+    "skill.title": value => {
+      return Validator.value(value).required("Не может быть пустым");
+    },
+    "skill.percent": value => {
+      return Validator.value(value)
+        .integer("Должно быть числом")
+        .between(0, 100, "Некорректное значение")
+        .required("Не может быть пустым")
+    }
+  },
   props: {
     blocked: Boolean
   },
@@ -35,7 +49,6 @@ export default {
   },
   data() {
     return {
-      titleError: "",
       skill: {
         title: "",
         percent: 0
@@ -43,20 +56,8 @@ export default {
     }
   },
   methods: {
-    addSkill() {
-      this.titleError = "";
-    
-      if (this.skill.title.trim() === "") {
-        this.titleError = "Заполните поле";
-
-        return;
-      }
-
-      if (this.skill.percent === "") {
-        this.skill.percent = 0;
-
-        return;
-      }
+    async addSkill() {
+      if (!(await this.$validate())) return;
 
       this.$emit('add-skill', this.skill);
     }

@@ -1,56 +1,35 @@
 <template lang="pug">
   .app-container
-    headline
-      user
-    navigation
-    .page-content
-      .container
-        .header
-          .title Блок "Обо мне"
-          iconed-button(
-            type="iconed" 
-            title="Добавить группу"
-            @click="emptyCategoryInShown = true"
-            v-if="!emptyCategoryInShown"
-          )
-        ul.skills
-          li.item(v-if="emptyCategoryInShown")
-            category(
-              empty
-              @remove="emptyCategoryInShown = false"
-            )
-          li.item(v-for="category in categories" :key="category.id")
-            category(
-              :title="category.category"
-              :skills="category.skills"
-              @remove-skill=""
-              @edit-skill=""
-            )
+    router-view(name="header")
+    router-view
+    .notify-container(:class="[{active: isTooltipShown}]")
+      .notification
+        notification(
+          :text="tooltipText"
+          :type="tooltipType"
+          @click="hideTooltop"
+        )
 </template>
 
 <script>
-import headline from "./components/headline";
-import user from "./components/user";
-import navigation from "./components/navigation";
-import button from "./components/button";
-import category from "./components/category";
+import { mapActions, mapState } from 'vuex';
+import notification from "./components/notification";
 
 export default {
   components: {
-    headline,
-    user,
-    navigation,
-    iconedButton: button,
-    category
+    notification
   },
-  data() {
-    return {
-      categories: [],
-      emptyCategoryInShown: false
-    }
+  computed: {
+    ...mapState("tooltips", {
+      isTooltipShown: state => state.isShown,
+      tooltipText: state => state.text,
+      tooltipType: state => state.type
+    })
   },
-  created() {
-    this.categories = require("./data/categories.json");
+  methods: {
+    ...mapActions({
+      hideTooltop: "tooltips/hide"
+    })
   }
 }
 </script>
