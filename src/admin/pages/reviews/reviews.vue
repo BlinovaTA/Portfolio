@@ -4,9 +4,13 @@
       .container 
         .header
           .title Блок "Отзывы"
+        review-form(
+          v-if="showReviewForm"
+          @save="saveReview"
+        )
         ul.reviews__list
           .reviews__item.reviews__new-item
-            btn(type="square" title="Добавить отзыв")
+            btn(type="square" title="Добавить отзыв" @click="addNew")
           li.reviews__item.reviews__loaded-item(v-for="review in reviews" :key="review.id")
             card
               template(#title)
@@ -29,13 +33,20 @@ import btn from "../../components/button";
 import card from "../../components/card";
 import avatar from "../../components/avatar";
 import icon from "../../components/icon";
+import reviewForm from "../../components/reviewForm";
 
 export default {
   components: {
     btn,
     card,
     avatar,
-    icon
+    icon,
+    reviewForm
+  },
+  data() {
+    return {
+      showReviewForm: false
+    }
   },
   computed: {
     ...mapState("reviews", {
@@ -48,6 +59,13 @@ export default {
       fetchReviewsAction: "reviews/fetch",
       showTooltip: "tooltips/show"
     }),
+    addNew() {
+      this.showReviewForm = true;
+    },
+    saveReview(review) {
+      console.log(review);
+      this.showReviewForm = false;
+    },
     async fetchReviews() {
       try {
         await this.fetchReviewsAction();
