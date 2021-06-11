@@ -1,0 +1,43 @@
+<template lang="pug">
+  .review-card-components
+    card
+      template(#title)
+        .review__header
+          avatar(size="2.7" :src="review.photo").review__avatar
+          .review__header-info
+            .review__author {{review.author}}
+            .review__position {{review.occ }}
+      template(#content)
+        .review__content
+          .review__text {{review.text}}
+        .review__actions
+          icon(title="Править" symbol="pencil").review__edit
+          icon(title="Удалить" symbol="cross").review__cross
+</template>
+
+<script>
+import card from "../../components/card";
+import avatar from "../../components/avatar";
+import icon from "../../components/icon";
+
+export default {
+  props: {
+    review: {
+      type: Object,
+      default: () => ({
+        author: "",
+        occ: "",
+        text: "",
+        photo: ""
+      })
+    }
+  },
+  components: {
+    card,
+    avatar,
+    icon
+  },
+}
+</script>
+
+<style lang="postcss" scoped src="./reviewCard.pcss"></style>

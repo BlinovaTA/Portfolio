@@ -7,41 +7,26 @@
         review-form(
           v-if="showReviewForm"
           @save="saveReview"
+          @cancel="cancelClick"
         )
         ul.reviews__list
           .reviews__item.reviews__new-item
             btn(type="square" title="Добавить отзыв" @click="addNew")
           li.reviews__item.reviews__loaded-item(v-for="review in reviews" :key="review.id")
-            card
-              template(#title)
-                .review__header
-                  avatar(size="2.7" :src="review.photo").review__avatar
-                  .review__header-info
-                    .review__author {{review.author}}
-                    .review__position {{review.occ }}
-              template(#content)
-                .review__content
-                  .review__text {{review.text}}
-                .review__actions
-                  icon(title="Править" symbol="pencil").review__edit
-                  icon(title="Удалить" symbol="cross").review__cross
+            review-card(:review="review")
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
 import btn from "../../components/button";
-import card from "../../components/card";
-import avatar from "../../components/avatar";
-import icon from "../../components/icon";
 import reviewForm from "../../components/reviewForm";
+import reviewCard from "../../components/reviewCard";
 
 export default {
   components: {
     btn,
-    card,
-    avatar,
-    icon,
-    reviewForm
+    reviewForm,
+    reviewCard
   },
   data() {
     return {
@@ -65,6 +50,14 @@ export default {
     saveReview(review) {
       console.log(review);
       this.showReviewForm = false;
+    },
+    cancelClick() {
+      this.showReviewForm = false;
+
+      this.showTooltip({
+        text: "Отзыв не сохранен",
+        type: "warning"
+      })
     },
     async fetchReviews() {
       try {
