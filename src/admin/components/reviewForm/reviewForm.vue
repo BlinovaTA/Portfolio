@@ -18,29 +18,39 @@
                 app-input.review-form__name(
                   title="Имя автора" 
                   v-model="review.author"
+                  :errorMessage="validation.firstError('review.author')"
                 )
                 app-input.review-form__occ(
                   title="Титул автора"
                   v-model="review.occ"
+                  :errorMessage="validation.firstError('review.occ')"
                 )
               .review-form__text
                 app-input(
                   title="Сообщение" 
                   fieldType="textarea"
                   v-model="review.text"
+                  :errorMessage="validation.firstError('review.text')"
                 )
           .review-form__buttons
-            app-button(plain title="Отмена")
+            app-button(plain title="Отмена" @click="cancelClick")
             app-button(title="Сохранить" @click="saveClick")
 </template>
 
 <script>
+import { Validator, mixin as ValidatorMixin } from "simple-vue-validator";
 import card from "../card";
 import avatar from "../avatar";
 import appInput from "../input";
 import appButton from "../button";
 
 export default {
+  mixins: [ValidatorMixin],
+  validators: {
+    "review.author": value => Validator.value(value).required("Поле не заполнено"),
+    "review.occ": value => Validator.value(value).required("Поле не заполнено"),
+    "review.text": value => Validator.value(value).required("Поле не заполнено")
+  },
   components: {
     card,
     avatar,
@@ -63,8 +73,15 @@ export default {
     }
   },
   methods: {
-    saveClick() {
+    async saveClick() {
+      if (!(await this.$validate())) {
+        return;
+      }
+
       this.$emit("save", this.review);
+    },
+    cancelClick() {
+      this.$emit("cancel");
     }
   }
 }
