@@ -42,14 +42,28 @@ export default {
   methods: {
     ...mapActions({
       fetchReviewsAction: "reviews/fetch",
+      addReviewsAction: "reviews/add",
       showTooltip: "tooltips/show"
     }),
     addNew() {
       this.showReviewForm = true;
     },
-    saveReview(review) {
-      console.log(review);
+    async saveReview(review) {
       this.showReviewForm = false;
+
+      try {
+        await this.addReviewsAction(review);
+
+        this.showTooltip({
+          text: "Новый отзыв добавлен",
+          type: "success"
+        })
+      } catch (error) {
+        this.showTooltip({
+          text: error.message,
+          type: "error"
+        })
+      }
     },
     cancelClick() {
       this.showReviewForm = false;
