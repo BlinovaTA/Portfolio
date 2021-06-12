@@ -14,11 +14,24 @@
                   app-button(typeAttr="file")
             .work-form__col
               .work-form__row
-                app-input(v-model="newWork.title" title="Название")
+                app-input(
+                  v-model="newWork.title" 
+                  title="Название"
+                  :errorMessage="validation.firstError('newWork.title')"
+                )
               .work-form__row
-                app-input(v-model="newWork.link" title="Ссылка")
+                app-input(
+                  v-model="newWork.link" 
+                  title="Ссылка"
+                  :errorMessage="validation.firstError('newWork.link')"
+                )
               .work-form__row
-                app-input(v-model="newWork.description" field-type="textarea" title="Описание")
+                app-input(
+                  v-model="newWork.description" 
+                  field-type="textarea" 
+                  title="Описание"
+                  :errorMessage="validation.firstError('newWork.description')"
+                )
               .work-form__row
                 tags-adder(v-model="newWork.techs")
           .work-form__btns
@@ -38,6 +51,9 @@ import tagsAdder from "../tagsAdder";
 export default {
   mixins: [ValidatorMixin],
   validators: {
+    "newWork.title": value => Validator.value(value).required("Поле не заполнено"),
+    "newWork.link": value => Validator.value(value).required("Поле не заполнено"),
+    "newWork.description": value => Validator.value(value).required("Поле не заполнено")
   },
   components: { 
     card, 
@@ -59,7 +75,11 @@ export default {
     };
   },
   methods: {
-    handleSubmit() {
+    async handleSubmit() {
+      if (!(await this.$validate())) {
+        return;
+      }
+      
       this.$emit("save", this.newWork);
     },
     cancelClick() {
