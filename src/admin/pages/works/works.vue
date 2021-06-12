@@ -13,7 +13,10 @@
           .works__item.works__new-item
             btn(type="square" title="Добавить работу" @click="addNew")
           li.works__item.works__loaded-item(v-for="work in works" :key="work.id")
-            work-card(:work="work")
+            work-card(
+              :work="work"
+              @remove="removeWork($event, work.id)"
+            )
             
 </template>
 
@@ -43,6 +46,7 @@ export default {
     ...mapActions({
       fetchWorksAction :"works/fetch",
       addNewWork: "works/add",
+      removeWorksAction: "works/remove",
       showTooltip: "tooltips/show"
     }),
     addNew() {
@@ -82,7 +86,22 @@ export default {
           type: "error"
         })
       }
-    }
+    },
+    async removeWork($event, id) {
+      try {
+        await this.removeWorksAction(id);
+
+        this.showTooltip({
+          text: "Работа удалена",
+          type: "success"
+        })
+      } catch (error) {
+        this.showTooltip({
+          text: error.message,
+          type: "error"
+        })
+      }
+    },
   },
   created() {
     this.fetchWorks();

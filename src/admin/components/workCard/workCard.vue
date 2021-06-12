@@ -12,7 +12,11 @@
         a.work__link(:href="work.link") {{work.link}}
         .work__btns
           icon(symbol="pencil" title="Править")
-          icon(symbol="trash" title="Удалить")
+          icon(
+            symbol="trash" 
+            title="Удалить"
+            @click="removeClick"
+          )
 </template>
 
 <script>
@@ -32,6 +36,11 @@ export default {
   computed: {
     cover() {
       return `https://webdev-api.loftschool.com/${this.work.photo}`;
+    }
+  },
+  methods: {
+    removeClick() {
+      this.$emit('remove')
     }
   }
 }
