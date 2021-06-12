@@ -13,7 +13,10 @@
           .reviews__item.reviews__new-item
             btn(type="square" title="Добавить отзыв" @click="addNew")
           li.reviews__item.reviews__loaded-item(v-for="review in reviews" :key="review.id")
-            review-card(:review="review")
+            review-card(
+              :review="review"
+              @remove="removeReview($event, review.id)"
+            )
 </template>
 
 <script>
@@ -43,6 +46,7 @@ export default {
     ...mapActions({
       fetchReviewsAction: "reviews/fetch",
       addReviewsAction: "reviews/add",
+      removeReviewsAction: "reviews/remove",
       showTooltip: "tooltips/show"
     }),
     addNew() {
@@ -87,7 +91,22 @@ export default {
           type: "error"
         })
       }
-    }
+    },
+    async removeReview($event, id) {
+      try {
+        await this.removeReviewsAction(id);
+
+        this.showTooltip({
+          text: "Отзыв удален",
+          type: "success"
+        })
+      } catch (error) {
+        this.showTooltip({
+          text: error.message,
+          type: "error"
+        })
+      }
+    },
   },
   created() {
     this.fetchReviews();

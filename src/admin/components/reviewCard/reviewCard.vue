@@ -11,7 +11,11 @@
         .review__text {{review.text}}
       .review__actions
         icon(title="Править" symbol="pencil").review__edit
-        icon(title="Удалить" symbol="cross").review__cross
+        icon(
+          title="Удалить" 
+          symbol="cross"
+          @click="removeClick"
+        ).review__cross
 </template>
 
 <script>
@@ -41,6 +45,11 @@ export default {
       return `https://webdev-api.loftschool.com/${this.review.photo}`;
     }
   },
+  methods: {
+    removeClick() {
+      this.$emit("remove");
+    }
+  }
 }
 </script>
 

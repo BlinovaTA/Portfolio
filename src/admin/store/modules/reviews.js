@@ -19,7 +19,7 @@ export default {
         return category;
       })
     },
-    REMOVE_REVIEWS: (state, removableReviewId) => {
+    REMOVE_REVIEW: (state, removableReviewId) => {
       state.data = state.data.filter(review => review.id !== removableReviewId)
     }
   },
@@ -40,7 +40,7 @@ export default {
     async remove({commit}, removableReviewId) {
       try {
         const { data } = await this.$axios.delete(`/reviews/${removableReviewId}`);
-        commit("REMOVE_REVIEWS", removableReviewId);
+        commit("REMOVE_REVIEW", removableReviewId);
       } catch (error) {
         throw new Error(error.response.data.error);
       }
