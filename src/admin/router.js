@@ -33,8 +33,18 @@ const routes = [
   },
   {
     path: "/login",
-    component: login
+    component: login,
+    meta: {
+      public: true
+    }
   }
 ];
 
-export default new VueRouter({ routes });
+const router = new VueRouter({ routes });
+
+router.beforeEach((to, from,next) => {
+  const isPublicRoute = to.matched.some(route => route.meta.public);
+  next();
+});
+
+export default router;
