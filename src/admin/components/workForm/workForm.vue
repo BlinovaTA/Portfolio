@@ -8,11 +8,17 @@
               label.uploader(
                 :style="{backgroundImage: `url(${newWork.preview})`}"
                 :class="[{active: newWork.preview}, {hovered: hovered}]"
-                @change="changeImage"
+                @dragover="handleDragOver"
+                @dragleave="hovered = false"
+                @drop="changeImage"
               )
                 .uploader-title Перетащите или загрузите для загрузки изображения
                 .uploader-btn
-                  app-button(typeAttr="file" title="Загрузить")
+                  app-button(
+                    typeAttr="file" 
+                    title="Загрузить"
+                    @change="changeImage"
+                  )
             .work-form__col
               .work-form__row
                 app-input(
@@ -48,6 +54,7 @@ import card from "../card";
 import appButton from "../button";
 import appInput from "../input";
 import tagsAdder from "../tagsAdder";
+import { mapActions } from "vuex";
 
 export default {
   mixins: [ValidatorMixin],
@@ -76,6 +83,9 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      showTooltip: "tooltips/show"
+    }),
     async handleSubmit() {
       if (!(await this.$validate())) {
         return;
@@ -87,10 +97,15 @@ export default {
       this.$emit("cancel");
     },
     changeImage(event) {
-      const file = event.target.files[0];
+      event.preventDefault();
+      
+      const file = event.dataTransfer 
+        ? event.dataTransfer.files[0] 
+        : event.target.files[0];
 
       this.newWork.photo = file;
       this.renderPhoto(file);
+      this.hovered = false;
     },
     renderPhoto(file) {
       const reader = new FileReader();
@@ -99,6 +114,24 @@ export default {
       reader.onloadend = () => {
         this.newWork.preview = reader.result;
       };
+
+      render.onerror = () => {
+        this.showTooltip({
+          text: "Ошибка загрузки файла",
+          type: "error"
+        })
+      }
+
+      render.onabort = (e) => {
+        this.showTooltip({
+          text: "Загрузка файла прервана",
+          type: "error"
+        })
+      }
+    },
+    handleDragOver(e) {
+      e.preventDefault();
+      this.hovered = true;
     }
   }
 }
