@@ -70,12 +70,11 @@ export default {
         commit("SET_LOADING", false);
       }
     },
-    async fetch({commit}) {
+    async fetch({commit, rootState}) {
       try {
         commit("SET_LOADING", true);
 
-        const response = await this.$axios.get('/user');
-        const { data } = await this.$axios.get(`/categories/${response.data.user.id}`);
+        const { data } = await this.$axios.get(`/categories/${rootState.user.user.id}`);
 
         commit("SET_CATEGORIES", data);
       } catch (error) {
