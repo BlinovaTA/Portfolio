@@ -21,6 +21,7 @@
 import btn from "../../components/button";
 import workCard from "../../components/workCard";
 import workForm from "../../components/workForm";
+import { mapActions, mapState } from "vuex";
 
 export default {
   components: {
@@ -33,16 +34,58 @@ export default {
       showWorkForm: false
     }
   },
+  computed: {
+    ...mapState("works", {
+      works: state => state.data,
+    })
+  },
   methods: {
-    addNew(work) {
-      this.showWorkForm = true
+    ...mapActions({
+      fetchWorksAction :"works/fetch",
+      addNewWork: "works/add",
+      showTooltip: "tooltips/show"
+    }),
+    addNew() {
+      this.showWorkForm = true;
     },
-    saveClick() {
-      this.showWorkForm = false
+    async saveClick(work) {
+      this.showWorkForm = false;
+
+      try {
+        await this.addNewWork(work);
+
+        this.showTooltip({
+          text: "Новая работа добавлена",
+          type: "success"
+        })
+      } catch (error) {
+        this.showTooltip({
+          text: error.message,
+          type: "error"
+        })
+      }
     },
     cancelClick() {
-      this.showWorkForm = false
+      this.showWorkForm = false;
+    },
+    async fetchWorks() {
+      try {
+        await this.fetchWorksAction();
+
+        this.showTooltip({
+          text: "Работы загружены",
+          type: "success"
+        })
+      } catch (error) {
+        this.showTooltip({
+          text: error.message,
+          type: "error"
+        })
+      }
     }
+  },
+  created() {
+    this.fetchWorks();
   }
 }
 </script>

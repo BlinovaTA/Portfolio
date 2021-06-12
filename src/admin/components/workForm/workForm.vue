@@ -6,8 +6,8 @@
           .work-form__cols
             .work-form__col
               label.uploader(
-                :style="{backgroundImage: `url(${newWork.preview})`}"
-                :class="[{active: newWork.preview}, {hovered: hovered}]"
+                :style="{backgroundImage: `url(${preview})`}"
+                :class="[{active: preview}, {hovered: hovered}]"
                 @dragover="handleDragOver"
                 @dragleave="hovered = false"
                 @drop="changeImage"
@@ -78,8 +78,8 @@ export default {
         description: "",
         techs: "",
         photo: {},
-        preview: "",
       },
+      preview: "",
     };
   },
   methods: {
@@ -112,17 +112,17 @@ export default {
 
       reader.readAsDataURL(file);      
       reader.onloadend = () => {
-        this.newWork.preview = reader.result;
+        this.preview = reader.result;
       };
 
-      render.onerror = () => {
+      reader.onerror = () => {
         this.showTooltip({
           text: "Ошибка загрузки файла",
           type: "error"
         })
       }
 
-      render.onabort = (e) => {
+      reader.onabort = (e) => {
         this.showTooltip({
           text: "Загрузка файла прервана",
           type: "error"
