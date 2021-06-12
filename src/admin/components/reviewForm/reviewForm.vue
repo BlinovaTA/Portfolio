@@ -1,10 +1,8 @@
 <template lang="pug">
   .review-form-component
-    card
-      template(#title)
-        .review-form__title Новый отзыв
-      template(#content)
-        .review-form__content
+    form.form(@submit.prevent="handleSubmit")
+      card(title="Новый отзыв")
+        .review-form__container(slot="content")
           .review-form__info
             .review-form__photo
               avatar(
@@ -33,8 +31,10 @@
                   :errorMessage="validation.firstError('review.text')"
                 )
           .review-form__buttons
-            app-button(plain title="Отмена" @click="cancelClick")
-            app-button(title="Сохранить" @click="saveClick")
+            .review-form__btn
+              app-button(plain title="Отмена" @click="cancelClick")
+            .review-form__btn
+              app-button(title="Сохранить")
 </template>
 
 <script>
@@ -73,7 +73,7 @@ export default {
     }
   },
   methods: {
-    async saveClick() {
+    async handleSubmit() {
       if (!(await this.$validate())) {
         return;
       }

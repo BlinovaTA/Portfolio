@@ -4,7 +4,11 @@
       .container 
         .header
           .title Блок "Работы"
-
+        work-form(
+          v-if="showWorkForm"
+          @save="saveClick"
+          @cancel="cancelClick"
+        )
         ul.works__list
           .works__item.works__new-item
             btn(type="square" title="Добавить работу" @click="addNew")
@@ -16,11 +20,13 @@
 <script>
 import btn from "../../components/button";
 import workCard from "../../components/workCard";
+import workForm from "../../components/workForm";
 
 export default {
   components: {
     btn,
-    workCard
+    workCard,
+    workForm
   },
   data() {
     return {
@@ -28,8 +34,11 @@ export default {
     }
   },
   methods: {
-    addNew() {
-      showWorkForm = true
+    addNew(work) {
+      this.showWorkForm = true
+    },
+    saveClick() {
+      this.showWorkForm = false
     },
     cancelClick() {
       this.showWorkForm = false
