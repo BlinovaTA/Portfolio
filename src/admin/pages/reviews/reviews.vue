@@ -6,7 +6,9 @@
           .title Блок "Отзывы"
         review-form(
           v-if="showReviewForm"
-          @save="saveReview"
+          :title="titleReviewForm"
+          :review="currentReview"
+          @save="saveClick"
           @cancel="cancelClick"
         )
         ul.reviews__list
@@ -16,6 +18,7 @@
             review-card(
               :review="review"
               @remove="removeReview($event, review.id)"
+              @edit="editReview($event, review.id)"
             )
 </template>
 
@@ -33,7 +36,15 @@ export default {
   },
   data() {
     return {
-      showReviewForm: false
+      showReviewForm: false,
+      titleReviewForm: "",
+      isEdit: false, 
+      currentReview: {
+        author: "",
+        occ: "",
+        text: "",
+        photo: {}
+      }
     }
   },
   computed: {
@@ -47,14 +58,21 @@ export default {
       fetchReviewsAction: "reviews/fetch",
       addReviewsAction: "reviews/add",
       removeReviewsAction: "reviews/remove",
+      editReviewsAction: "reviews/edit",
       showTooltip: "tooltips/show"
     }),
     addNew() {
       this.showReviewForm = true;
+      this.titleReviewForm = "Новый отзыв";
+      this.isEdit = false;
+      this.currentReview = {
+        author: "",
+        occ: "",
+        text: "",
+        photo: {}
+      }
     },
-    async saveReview(review) {
-      this.showReviewForm = false;
-
+    async saveNewReview(review) {
       try {
         await this.addReviewsAction(review);
 
@@ -67,6 +85,30 @@ export default {
           text: error.message,
           type: "error"
         })
+      }
+    },
+    async saveEditReview(review) {
+      try {
+        await this.editReviewsAction(review);
+
+        this.showTooltip({
+          text: "Отзыв отредактирован",
+          type: "success"
+        })
+      } catch (error) {
+        this.showTooltip({
+          text: error.message,
+          type: "error"
+        })
+      }
+    },
+    saveClick(review) {
+      this.showReviewForm = false;
+
+      if (this.isEdit) {
+        this.saveEditReview(review);
+      } else {
+        this.saveNewReview(review);
       }
     },
     cancelClick() {
@@ -107,6 +149,12 @@ export default {
         })
       }
     },
+    editReview($event, id) {
+      this.showReviewForm = true;
+      this.titleReviewForm = "Редактирование отзыва";
+      this.currentReview = {...this.reviews.find(review => review.id === id)};
+      this.isEdit = true;
+    }
   },
   created() {
     this.fetchReviews();

@@ -10,13 +10,13 @@ export default {
     ADD_REVIEW: (state, newReview) => {
       state.data.push(newReview);
     },
-    EDIT_REVIEWS: (state, {title, id}) => {
-      state.data = state.data.map(category => {
-        if (category.id === id) {
-          category.category = title;
+    EDIT_REVIEW: (state, editedReview) => {
+      state.data = state.data.map(review => {
+        if (review.id === editedReview.id) {
+          review = editedReview;
         }
 
-        return category;
+        return review;
       })
     },
     REMOVE_REVIEW: (state, removableReviewId) => {
@@ -59,5 +59,19 @@ export default {
         throw new Error(error.response.data.error);
       }
     },
+    async edit({commit}, editedReview) {
+      try {
+        const formData = new FormData();
+
+        Object.keys(editedReview).forEach(item => {
+          formData.append(item, editedReview[item]);
+        });
+
+        const { data } = await this.$axios.post(`/reviews/${editedReview.id}`, formData);
+        commit("EDIT_REVIEW", data.review);
+      } catch (error) {
+        throw new Error(error.response.data.error);
+      }
+    }
   }
 }

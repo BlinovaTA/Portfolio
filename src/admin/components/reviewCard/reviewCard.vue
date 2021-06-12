@@ -10,7 +10,11 @@
       .review__content
         .review__text {{review.text}}
       .review__actions
-        icon(title="Править" symbol="pencil").review__edit
+        icon(
+          title="Править" 
+          symbol="pencil"
+          @click="editClick"
+        ).review__edit
         icon(
           title="Удалить" 
           symbol="cross"
@@ -48,6 +52,9 @@ export default {
   methods: {
     removeClick() {
       this.$emit("remove");
+    },
+    editClick() {
+      this.$emit("edit");
     }
   }
 }

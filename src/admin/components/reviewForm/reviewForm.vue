@@ -1,7 +1,7 @@
 <template lang="pug">
   .review-form-component
     form.form(@submit.prevent="handleSubmit")
-      card(title="Новый отзыв")
+      card(:title="title")
         .review-form__container(slot="content")
           .review-form__info
             .review-form__photo
@@ -62,15 +62,13 @@ export default {
     appInput,
     appButton
   },
+  props: {
+    title: String,
+    review: Object
+  },
   data() {
     return {
-      preview: "",
-      review: {
-        author: "",
-        occ: "",
-        text: "",
-        photo: {}
-      }
+      preview: ""
     }
   },
   methods: {
@@ -116,7 +114,12 @@ export default {
     },
   },
   created() {
-    this.preview = require("../../../images/content/default-user.png").default;
+    if (Object.keys(this.review.photo).length !== 0) {
+      this.preview = `https://webdev-api.loftschool.com/${this.review.photo}`
+    } else {
+      this.preview = require("../../../images/content/default-user.png").default;
+    }
+    
   }
 }
 </script>
