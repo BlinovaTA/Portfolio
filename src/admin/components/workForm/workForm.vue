@@ -1,7 +1,7 @@
 <template lang="pug">
   .work-form-component
     form.form(@submit.prevent="handleSubmit")
-      card(title="Добавление работы")
+      card(:title="title")
         .work-form-container(slot="content")
           .work-form__cols
             .work-form__col
@@ -22,25 +22,25 @@
             .work-form__col
               .work-form__row
                 app-input(
-                  v-model="newWork.title" 
+                  v-model="work.title" 
                   title="Название"
-                  :errorMessage="validation.firstError('newWork.title')"
+                  :errorMessage="validation.firstError('work.title')"
                 )
               .work-form__row
                 app-input(
-                  v-model="newWork.link" 
+                  v-model="work.link" 
                   title="Ссылка"
-                  :errorMessage="validation.firstError('newWork.link')"
+                  :errorMessage="validation.firstError('work.link')"
                 )
               .work-form__row
                 app-input(
-                  v-model="newWork.description" 
+                  v-model="work.description" 
                   field-type="textarea" 
                   title="Описание"
-                  :errorMessage="validation.firstError('newWork.description')"
+                  :errorMessage="validation.firstError('work.description')"
                 )
               .work-form__row
-                tags-adder(v-model="newWork.techs")
+                tags-adder(v-model="work.techs")
           .work-form__btns
             .work-form__btn
               app-button(title="Отмена" plain @click="cancelClick")
@@ -59,9 +59,9 @@ import { mapActions } from "vuex";
 export default {
   mixins: [ValidatorMixin],
   validators: {
-    "newWork.title": value => Validator.value(value).required("Поле не заполнено"),
-    "newWork.link": value => Validator.value(value).required("Поле не заполнено"),
-    "newWork.description": value => Validator.value(value).required("Поле не заполнено")
+    "work.title": value => Validator.value(value).required("Поле не заполнено"),
+    "work.link": value => Validator.value(value).required("Поле не заполнено"),
+    "work.description": value => Validator.value(value).required("Поле не заполнено")
   },
   components: { 
     card, 
@@ -69,16 +69,13 @@ export default {
     appInput, 
     tagsAdder 
   },
+  props: {
+    title: String,
+    work: Object
+  },
   data() {
     return {
       hovered: false,
-      newWork: {
-        title: "",
-        link: "",
-        description: "",
-        techs: "",
-        photo: {},
-      },
       preview: "",
     };
   },
@@ -91,7 +88,7 @@ export default {
         return;
       }
       
-      this.$emit("save", this.newWork);
+      this.$emit("save", this.work);
     },
     cancelClick() {
       this.$emit("cancel");
@@ -103,7 +100,7 @@ export default {
         ? event.dataTransfer.files[0] 
         : event.target.files[0];
 
-      this.newWork.photo = file;
+      this.work.photo = file;
       this.renderPhoto(file);
       this.hovered = false;
     },
@@ -132,6 +129,11 @@ export default {
     handleDragOver(e) {
       e.preventDefault();
       this.hovered = true;
+    }
+  },
+  created() {
+    if (Object.keys(this.work.photo).length !== 0) {
+      this.preview = `https://webdev-api.loftschool.com/${this.work.photo}`
     }
   }
 }

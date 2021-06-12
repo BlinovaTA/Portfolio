@@ -11,7 +11,11 @@
           p {{work.description}}
         a.work__link(:href="work.link") {{work.link}}
         .work__btns
-          icon(symbol="pencil" title="Править")
+          icon(
+            symbol="pencil" 
+            title="Править"
+            @click="editClick"
+          )
           icon(
             symbol="trash" 
             title="Удалить"
@@ -40,7 +44,10 @@ export default {
   },
   methods: {
     removeClick() {
-      this.$emit('remove')
+      this.$emit("remove")
+    },
+    editClick() {
+      this.$emit("edit");
     }
   }
 }

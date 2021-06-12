@@ -12,6 +12,15 @@ export default {
     },
     REMOVE_WORK: (state, removableWorkId) => {
       state.data = state.data.filter(work => work.id !== removableWorkId)
+    },
+    EDIT_WORK: (state, editedWork) => {
+      state.data = state.data.map(work => {
+        if (work.id === editedWork.id) {
+          work = editedWork;
+        }
+
+        return work;
+      })
     }
   },
   actions: {
@@ -47,5 +56,20 @@ export default {
         throw new Error(error.response.data.error);
       }
     },
+
+    async edit({commit}, editedWork) {
+      try {
+        const formData = new FormData();
+
+        Object.keys(editedWork).forEach(item => {
+          formData.append(item, editedWork[item]);
+        });
+
+        const { data } = await this.$axios.post(`/works/${editedWork.id}`, formData);
+        commit("EDIT_WORK", data.work);
+      } catch (error) {
+        throw new Error(error.response.data.error);
+      }
+    }
   }
 }
