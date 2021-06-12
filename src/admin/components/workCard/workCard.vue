@@ -28,6 +28,11 @@ export default {
   },
   props: {
     work: Object
+  },
+  computed: {
+    cover() {
+      return `https://webdev-api.loftschool.com/${this.work.photo}`;
+    }
   }
 }
 </script>
