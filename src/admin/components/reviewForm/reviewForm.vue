@@ -6,11 +6,16 @@
           .review-form__info
             .review-form__photo
               avatar(
-                :src="userPic"
+                :src="preview"
                 size="13"
               )
               .review-form__add-photo
-                app-button(plain title="Добавить фото")
+                app-button(
+                  plain
+                  typeAttr="file" 
+                  title="Добавить фото"
+                  @change="changeImage"
+                )
             .review-form__review-data
               .review-form__author
                 app-input.review-form__name(
@@ -59,17 +64,13 @@ export default {
   },
   data() {
     return {
+      preview: "",
       review: {
         author: "",
         occ: "",
         text: "",
-        photo: ""
+        photo: {}
       }
-    }
-  },
-  computed: {
-    userPic() {
-      return require("../../../images/content/default-user.png").default;
     }
   },
   methods: {
@@ -82,7 +83,40 @@ export default {
     },
     cancelClick() {
       this.$emit("cancel");
-    }
+    },
+    changeImage(event) {
+      event.preventDefault();
+      
+      const file = event.target.files[0];
+
+      this.review.photo = file;
+      this.renderPhoto(file);
+    },
+    renderPhoto(file) {
+      const reader = new FileReader();
+
+      reader.readAsDataURL(file);      
+      reader.onloadend = () => {
+        this.preview = reader.result;
+      };
+
+      reader.onerror = () => {
+        this.showTooltip({
+          text: "Ошибка загрузки файла",
+          type: "error"
+        })
+      }
+
+      reader.onabort = (e) => {
+        this.showTooltip({
+          text: "Загрузка файла прервана",
+          type: "error"
+        })
+      }
+    },
+  },
+  created() {
+    this.preview = require("../../../images/content/default-user.png").default;
   }
 }
 </script>
