@@ -2,7 +2,7 @@
   card
     template(#title)
       .review__header
-        avatar(size="2.7" :src="review.photo").review__avatar
+        avatar(size="2.7" :src="cover").review__avatar
         .review__header-info
           .review__author {{review.author}}
           .review__position {{review.occ }}
@@ -27,7 +27,7 @@ export default {
         author: "",
         occ: "",
         text: "",
-        photo: ""
+        photo: {}
       })
     }
   },
@@ -35,6 +35,11 @@ export default {
     card,
     avatar,
     icon
+  },
+  computed: {
+    cover() {
+      return `https://webdev-api.loftschool.com/${this.review.photo}`;
+    }
   },
 }
 </script>
