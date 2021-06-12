@@ -8,10 +8,11 @@
               label.uploader(
                 :style="{backgroundImage: `url(${newWork.preview})`}"
                 :class="[{active: newWork.preview}, {hovered: hovered}]"
+                @change="changeImage"
               )
                 .uploader-title Перетащите или загрузите для загрузки изображения
                 .uploader-btn
-                  app-button(typeAttr="file")
+                  app-button(typeAttr="file" title="Загрузить")
             .work-form__col
               .work-form__row
                 app-input(
@@ -84,7 +85,21 @@ export default {
     },
     cancelClick() {
       this.$emit("cancel");
-    }    
+    },
+    changeImage(event) {
+      const file = event.target.files[0];
+
+      this.newWork.photo = file;
+      this.renderPhoto(file);
+    },
+    renderPhoto(file) {
+      const reader = new FileReader();
+
+      reader.readAsDataURL(file);      
+      reader.onloadend = () => {
+        this.newWork.preview = reader.result;
+      };
+    }
   }
 }
 </script>
