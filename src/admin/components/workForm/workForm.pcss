@@ -1,9 +1,15 @@
+@import url("../../../styles/mixins.pcss");
+
 .work-form-component {
   margin-bottom: 30px;
 }
 
 .work-form__cols {
   display: flex;
+
+  @include tablets {
+    flex-direction: column;
+  }
 }
 
 .work-form__col {
@@ -12,6 +18,15 @@
 
   &:last-child {
     margin-right: 0;
+  }
+
+  @include tablets {
+    width: 100%;
+    margin-bottom: 38px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
 

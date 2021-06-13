@@ -1,3 +1,5 @@
+@import url("../../../styles/mixins.pcss");
+
 .review-form-component {
   margin-bottom: 30px;
 }
@@ -11,6 +13,10 @@
 .review-form__info {
   display: flex;
   margin-bottom: 33px;
+
+  @include phones {
+    flex-direction: column;
+  }
 }
 
 .review-form__photo {
@@ -27,10 +33,19 @@
 .review-form__author {
   display: flex;
   margin-bottom: 37px;
+
+  @include tablets {
+    flex-direction: column;
+  }
 }
 
 .review-form__name {
   margin-right: 30px;
+
+  @include tablets {
+    margin-right: 0;
+    margin-bottom: 30px;
+  }
 }
 
 .review-form__name, .review-form__occ {

@@ -1,3 +1,5 @@
+@import url("../../../styles/mixins.pcss");
+
 .about-page-component {
   display: flex;
   flex: 1;
@@ -12,6 +14,10 @@
 .header {
   display: flex;
   margin-bottom: 60px;
+
+  @include phones {
+    flex-direction: column;
+  }
 }
 
 .title {
@@ -19,6 +25,10 @@
   font-size: 21px;
   font-weight: bold;
   color: $text-color;
+
+  @include phones {
+    margin-bottom: 25px;
+  }
 }
 
 .skills {
@@ -30,4 +40,9 @@
   width: calc(100% / 2 - 30px);
   margin-right: 30px;
   margin-bottom: 30px;
+
+  @include phones {
+    width: 100%;
+    margin-right: 0;
+  }
 }
