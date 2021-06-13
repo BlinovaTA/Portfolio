@@ -1,9 +1,28 @@
 .thumbs {
   &__item:hover {
-    outline: 3px solid $text-color-hover-dark !important;
+    border: 3px solid $text-color-hover-dark !important;
   }
 
   &__item.active {
-    outline: 3px solid $text-color-hover-dark !important;
+    border: 3px solid $text-color-hover-dark !important;
   }
+}
+
+.nextOutsided {
+  position: absolute;
+  bottom: 100%;
+}
+
+.prevOutsided {
+  position: absolute;
+  top: 100%;
+}
+
+.transition {
+  transition: 1s;
+}
+
+.fade {
+  transition: 1s;
+  opacity: 0;
 }
