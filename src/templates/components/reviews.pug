@@ -24,7 +24,7 @@ script(type="text/x-template")#slider-container
               +icon("quote", "slider__item-icon")
             .quote 
               .quote__text 
-                p {{review.comment}}
+                p {{review.text}}
               .quote__user
                 .user-display 
                   .user-display__avatar 
@@ -32,4 +32,4 @@ script(type="text/x-template")#slider-container
                       img(:src="review.photo").user-display__pic
                   .user-display__data
                     .user-display__name {{review.author}} 
-                    .user-display__position {{review.position}}
+                    .user-display__position {{review.occ}}
