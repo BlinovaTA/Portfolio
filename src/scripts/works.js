@@ -1,4 +1,8 @@
 import Vue from "vue";
+import axios from "axios";
+import config from "../../env.paths.json";
+
+axios.defaults.baseURL = config.BASE_URL;
 
 const thumbs = {
   props: [
@@ -16,12 +20,21 @@ const btns = {
 };
 
 const display = {
-  props: [
-    "currentWork",
-    "works",
-    "currentIndex",
-    "disabledButtons"
-  ],
+  props: {
+    currentWork: {
+      type: Object,
+      default: () => ({
+        title: "",
+        link: "",
+        description: "",
+        techs: "",
+        photo: {}
+      })
+    },
+    works: Array,
+    currentIndex: Number,
+    disabledButtons: Object
+  },
   template: "#preview-display",
   components: {
     thumbs,
@@ -42,7 +55,18 @@ const tags = {
 };
 
 const info = {
-  props: ["currentWork"],
+  props: {
+    currentWork: {
+      type: Object,
+      default: () => ({
+        title: "",
+        link: "",
+        description: "",
+        techs: "",
+        photo: {}
+      })
+    }
+  },
   template: "#preview-info",
   components: {
     tags
@@ -88,10 +112,11 @@ new Vue({
         this.currentIndex = 0;
       }
     },
-    requireImagesToArray(data) {
+    dataConversion(data) {
       return data.map(item => {
-        const requiredImage = require(`../images/content/${item.photo}`).default;
+        const requiredImage = `${config.BASE_URL}/${item.photo}`;
         item.photo = requiredImage;
+        item.techs = item.techs.split(",");
 
         return item;
       });
@@ -122,8 +147,8 @@ new Vue({
       };
     }
   },
-  created() {
-    const data = require("../data/works.json");
-    this.works = this.requireImagesToArray(data);
+  async created() {
+    const { data } = await axios.get("/works/459");
+    this.works = this.dataConversion(data);
   }
 });

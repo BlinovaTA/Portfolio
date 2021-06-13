@@ -53,11 +53,11 @@ script(type="text/x-template")#preview-btns
 script(type="text/x-template")#preview-info
   .works__info
     tags(
-      :tags="currentWork.skills"
+      :tags="currentWork.techs"
     )
     .works__title {{currentWork.title}}
     .works__desc
-      p {{currentWork.desc}}
+      p {{currentWork.description}}
     a(:href="currentWork.link").iconed-link Посмотреть сайт
 
 script(type="text/x-template")#preview-tags
