@@ -24,16 +24,13 @@
 </template>
 
 <script>
-import btn from "../../components/button";
-import workCard from "../../components/workCard";
-import workForm from "../../components/workForm";
 import { mapActions, mapState } from "vuex";
 
 export default {
   components: {
-    btn,
-    workCard,
-    workForm
+    btn: () => import("../../components/button"),
+    workCard: () => import("../../components/workCard"),
+    workForm: () => import("../../components/workForm")
   },
   data() {
     return {

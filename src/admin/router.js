@@ -6,37 +6,31 @@ import config from "../../env.paths.json";
 
 Vue.use(VueRouter);
 
-import login from "./pages/login";
-import about from "./pages/about";
-import works from "./pages/works";
-import reviews from "./pages/reviews";
-import header from "./components/header";
-
 const routes = [
   {
     path: "/",
     components: {
-      default: about,
-      header
+      default: () => import("./pages/about"),
+      header: () => import("./components/header")
     }
   },
   {
     path: "/works",
     components: {
-      default: works,
-      header
+      default: () => import("./pages/works"),
+      header: () => import("./components/header")
     }
   },
   {
     path: "/reviews",
     components: {
-      default: reviews,
-      header
+      default: () => import("./pages/reviews"),
+      header: () => import("./components/header")
     }
   },
   {
     path: "/login",
-    component: login,
+    component: () => import("./pages/login"),
     meta: {
       public: true
     }

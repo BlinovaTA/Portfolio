@@ -26,8 +26,6 @@
 </template>
 
 <script>
-import appInput from "../../components/input";
-import appButton from "../../components/button";
 import { Validator, mixin as ValidatorMixin } from "simple-vue-validator";
 import $axios from "../../requests";
 import { mapActions } from 'vuex';
@@ -39,8 +37,8 @@ export default {
     "user.password": value => Validator.value(value).required("Введите пароль")
   },
   components: {
-    appInput,
-    appButton
+    appInput: () => import("../../components/input"),
+    appButton: () => import("../../components/button")
   },
   data() {
     return {

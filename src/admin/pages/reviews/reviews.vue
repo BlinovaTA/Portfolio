@@ -24,15 +24,12 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import btn from "../../components/button";
-import reviewForm from "../../components/reviewForm";
-import reviewCard from "../../components/reviewCard";
 
 export default {
   components: {
-    btn,
-    reviewForm,
-    reviewCard
+    btn: () => import("../../components/button"),
+    reviewForm: () => import("../../components/reviewForm"),
+    reviewCard: () => import("../../components/reviewCard")
   },
   data() {
     return {
