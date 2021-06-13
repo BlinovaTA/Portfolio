@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "./store";
 import axios from "axios";
+import config from "../../env.paths.json";
 
 Vue.use(VueRouter);
 
@@ -45,7 +46,7 @@ const routes = [
 const router = new VueRouter({ routes });
 
 const guard = axios.create({
-  baseURL: "https://webdev-api.loftschool.com"
+  baseURL: config.BASE_URL
 });
 
 router.beforeEach(async (to, from,next) => {
