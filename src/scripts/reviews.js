@@ -60,7 +60,7 @@ new Vue({
     }
   },
   async created() {
-    const { data } = await axios.get("/reviews/459")
+    const { data } = await axios.get("/reviews/459");
     this.reviews = this.requireImagesToArray(data);
   },
   mounted() {
