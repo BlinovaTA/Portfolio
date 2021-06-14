@@ -29,14 +29,7 @@ module.exports = (env, argv) => {
   const js = {
     test: /\.js$/,
     loader: "babel-loader",
-    exclude: /node_modules/,
-    options: {
-      presets: ["@babel/preset-env"],
-      plugins: [
-        "@babel/plugin-syntax-dynamic-import",
-        "@babel/plugin-transform-runtime"
-      ],
-    },
+    exclude: /node_modules/
   };
 
   const files = {
