@@ -4,8 +4,6 @@ import store from "./store";
 import axios from "axios";
 import config from "../../env.paths.json";
 
-axios.defaults.baseURL = config.BASE_URL;
-
 Vue.use(VueRouter);
 
 const routes = [
