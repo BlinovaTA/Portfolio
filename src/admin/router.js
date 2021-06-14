@@ -4,6 +4,8 @@ import store from "./store";
 import axios from "axios";
 import config from "../../env.paths.json";
 
+axios.defaults.baseURL = config.BASE_URL;
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -43,7 +45,7 @@ const guard = axios.create({
   baseURL: config.BASE_URL
 });
 
-router.beforeEach(async (to, from,next) => {
+router.beforeEach(async (to, from, next) => {
   const isPublicRoute = to.matched.some(route => route.meta.public);
   const isUserLoggedIn = store.getters["user/userIsLoggedIn"];
 
