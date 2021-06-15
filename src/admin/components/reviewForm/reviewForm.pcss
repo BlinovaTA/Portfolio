@@ -1,0 +1,66 @@
+@import url("../../../styles/mixins.pcss");
+
+.review-form-component {
+  margin-bottom: 30px;
+}
+
+.review-form__content {
+  display: flex;
+  flex-direction: column;
+  margin-right: 15%;
+}
+
+.review-form__info {
+  display: flex;
+  margin-bottom: 33px;
+
+  @include phones {
+    flex-direction: column;
+  }
+}
+
+.review-form__photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 30px;
+}
+
+.review-form__review-data {
+  flex: 1;
+}
+
+.review-form__author {
+  display: flex;
+  margin-bottom: 37px;
+
+  @include tablets {
+    flex-direction: column;
+  }
+}
+
+.review-form__name {
+  margin-right: 30px;
+
+  @include tablets {
+    margin-right: 0;
+    margin-bottom: 30px;
+  }
+}
+
+.review-form__name, .review-form__occ {
+  flex: 1;
+}
+
+.review-form__buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.review-form__btn {
+  margin-right: 10px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}

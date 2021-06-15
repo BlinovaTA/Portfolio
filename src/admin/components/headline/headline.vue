@@ -4,18 +4,25 @@
       slot
       .title {{title}}
       .buttons 
-        button(type="button").btn Выйти
+        button(type="button" @click="logout").btn Выйти
 </template>
 
 <script>
-  export default {
-    props: {
-      title: {
-        type: String,
-        default: "Панель администрирования"
-      }
+import { mapActions } from 'vuex';
+
+export default {
+  props: {
+    title: {
+      type: String,
+      default: "Панель администрирования"
     }
-  };
+  },
+  methods: {
+    ...mapActions({
+      logout: "user/logout",
+    }),
+  }
+};
 </script>
 
 <style lang="postcss" scoped src="./headline.pcss">

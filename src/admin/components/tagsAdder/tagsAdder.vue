@@ -6,7 +6,7 @@
       @input="$emit('change', currentTags)"
     )
     ul.tags
-      li.tag(
+      li.tag.tag-wrapper(
         v-for="(tag, index) in tagsArray" 
         :key="`${tag}${index}`"
         v-if="tag.trim()"

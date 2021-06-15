@@ -1,40 +1,70 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "./store";
+import axios from "axios";
+import config from "../../env.paths.json";
 
 Vue.use(VueRouter);
-
-import login from "./pages/login";
-import about from "./pages/about";
-import works from "./pages/works";
-import reviews from "./pages/reviews";
-import header from "./components/header";
 
 const routes = [
   {
     path: "/",
     components: {
-      default: about,
-      header
+      default: () => import("./pages/about"),
+      header: () => import("./components/header")
     }
   },
   {
     path: "/works",
     components: {
-      default: works,
-      header
+      default: () => import("./pages/works"),
+      header: () => import("./components/header")
     }
   },
   {
     path: "/reviews",
     components: {
-      default: reviews,
-      header
+      default: () => import("./pages/reviews"),
+      header: () => import("./components/header")
     }
   },
   {
     path: "/login",
-    component: login
+    component: () => import("./pages/login"),
+    meta: {
+      public: true
+    }
   }
 ];
 
-export default new VueRouter({ routes });
+const router = new VueRouter({ routes });
+
+const guard = axios.create({
+  baseURL: config.BASE_URL
+});
+
+router.beforeEach(async (to, from, next) => {
+  const isPublicRoute = to.matched.some(route => route.meta.public);
+  const isUserLoggedIn = store.getters["user/userIsLoggedIn"];
+
+  if (!isPublicRoute && !isUserLoggedIn) {
+    const token = localStorage.getItem("token");
+
+    guard.defaults.headers["Authorization"] = `Bearer ${token}`;
+
+    try {
+      const response = await guard.get("/user"); 
+      
+      store.dispatch("user/login", await response.data.user);
+
+      next();
+    } catch (error) {
+      router.replace("/login");
+      localStorage.removeItem("token"); 
+    }
+  } else {
+    next();
+  }
+});
+
+export default router;

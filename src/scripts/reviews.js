@@ -1,6 +1,10 @@
 import Vue from "vue";
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
 import 'swiper/swiper-bundle.css';
+import axios from "axios";
+import config from "../../env.paths.json";
+
+axios.defaults.baseURL = config.BASE_URL;
 
 new Vue({
   el: "#slider-component",
@@ -29,7 +33,7 @@ new Vue({
   methods: {
     requireImagesToArray(data) {
       return data.map(item => {
-        const requiredImage = require(`../images/content/${item.photo}`).default;
+        const requiredImage = `${config.BASE_URL}/${item.photo}`;
         item.photo = requiredImage;
 
         return item;
@@ -55,8 +59,8 @@ new Vue({
       this.disabledPrev = this.$refs.slider.$swiper.activeIndex === 0;
     }
   },
-  created() {
-    const data = require("../data/reviews.json");
+  async created() {
+    const { data } = await axios.get("/reviews/459");
     this.reviews = this.requireImagesToArray(data);
   },
   mounted() {

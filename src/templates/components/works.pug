@@ -5,6 +5,7 @@ script(type="text/x-template")#preview-container
       :works="works",
       :currentIndex="currentIndex",
       :disabledButtons="disabledButtons"
+      :direction="direction"
       @slide="slide"
     )
     info(
@@ -19,6 +20,7 @@ script(type="text/x-template")#preview-display
         thumbs(
           :works="reversedWorks",
           :currentWork="currentWork"
+          :direction="direction"
         )    
       .works__btns
         btns(
@@ -27,7 +29,13 @@ script(type="text/x-template")#preview-display
         )
 
 script(type="text/x-template")#preview-thumbs
-  ul.thumbs 
+  transition-group(
+    tag="ul"
+    :css="false"
+    @enter="enterCb"
+    @after-enter="afterCb"
+    @leave="leaveCb"
+  ).thumbs 
     li.thumbs__item(
       v-for="work in works" :key="work.id"
       :class="{active: currentWork.id === work.id}"
@@ -53,11 +61,11 @@ script(type="text/x-template")#preview-btns
 script(type="text/x-template")#preview-info
   .works__info
     tags(
-      :tags="currentWork.skills"
+      :tags="currentWork.techs"
     )
     .works__title {{currentWork.title}}
     .works__desc
-      p {{currentWork.desc}}
+      p {{currentWork.description}}
     a(:href="currentWork.link").iconed-link Посмотреть сайт
 
 script(type="text/x-template")#preview-tags

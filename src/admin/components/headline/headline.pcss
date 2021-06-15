@@ -1,3 +1,5 @@
+@import url("../../../styles/mixins.pcss");
+
 .headline-component {
   width: 100%;
   background-image: linear-gradient(to top, #3e3e59, #454573);
@@ -8,10 +10,19 @@
   display: flex;
   padding: 16px 0;
   align-items: center;
+
+  @include phones {
+    flex-direction: column;
+    align-items: start;
+  }
 }
 
 .buttons {
   margin-left: auto;
+
+  @include phones {
+    margin-left: 45px;
+  }
 }
 
 .btn {
@@ -21,4 +32,8 @@
 
 .title {
   margin-left: 30px;
+
+  @include phones {
+    display: none;
+  }
 }

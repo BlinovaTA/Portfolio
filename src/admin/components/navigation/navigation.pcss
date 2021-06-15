@@ -1,3 +1,5 @@
+@import url("../../../styles/mixins.pcss");
+
 .list {
   display: flex;
 }
@@ -8,6 +10,10 @@
   font-weight: 600;
   display: block;
   text-decoration: none;
+
+  @include phones {
+    padding: 30px 10px;
+  }
 
   &:hover {
     color: #383bcf;

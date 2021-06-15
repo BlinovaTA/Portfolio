@@ -1,52 +1,93 @@
 import Vue from "vue";
+import axios from "axios";
+import config from "../../env.paths.json";
+
+axios.defaults.baseURL = config.BASE_URL;
 
 const thumbs = {
-  props: [
-    "works",
-    "currentWork"
-  ],
-  template: "#preview-thumbs"
+  props: ["works", "currentWork", "direction"],
+  template: "#preview-thumbs",
+  methods: {
+    enterCb(el, done) {
+      const list = el.closest("ul");
+
+      el.classList.add(this.direction === "next" ? "nextOutsided" : "prevOutsided");
+      list.classList.add("transition");
+      list.style.transform = this.direction === "next" ? `translateY(${list.clientHeight / 3}px)`: `translateY(-${list.clientHeight / 3}px)`;
+
+      list.addEventListener("transitionend", (e) => done());
+    },
+    afterCb(el) {
+      const list = el.closest("ul");
+      list.classList.remove("transition");
+      list.style.transform = "translateY(0px)";
+      el.classList.remove(this.direction === "next" ? "nextOutsided" : "prevOutsided");
+    },
+    leaveCb(el, done) {
+      el.classList.add("fade");
+      el.addEventListener("transitionend", (e) => done());
+    },
+  },
 };
 
 const btns = {
-  props: [
-    "disabledButtons"
-  ],
-  template: "#preview-btns"
+  props: ["disabledButtons"],
+  template: "#preview-btns",
 };
 
 const display = {
-  props: [
-    "currentWork",
-    "works",
-    "currentIndex",
-    "disabledButtons"
-  ],
+  props: {
+    direction: String,
+    currentWork: {
+      type: Object,
+      default: () => ({
+        title: "",
+        link: "",
+        description: "",
+        techs: "",
+        photo: {},
+      }),
+    },
+    works: Array,
+    currentIndex: Number,
+    disabledButtons: Object,
+  },
   template: "#preview-display",
   components: {
     thumbs,
-    btns
+    btns,
   },
   computed: {
     reversedWorks() {
       const works = [...this.works];
 
       return works.slice(0, 3).reverse();
-    }
-  }
+    },
+  },
 };
 
 const tags = {
   props: ["tags"],
-  template: "#preview-tags"
+  template: "#preview-tags",
 };
 
 const info = {
-  props: ["currentWork"],
+  props: {
+    currentWork: {
+      type: Object,
+      default: () => ({
+        title: "",
+        link: "",
+        description: "",
+        techs: "",
+        photo: {},
+      }),
+    },
+  },
   template: "#preview-info",
   components: {
-    tags
-  }
+    tags,
+  },
 };
 
 new Vue({
@@ -54,7 +95,7 @@ new Vue({
   template: "#preview-container",
   components: {
     display,
-    info
+    info,
   },
   data() {
     return {
@@ -62,19 +103,20 @@ new Vue({
       currentIndex: 0,
       disabledButtons: {
         next: false,
-        prev: true
-      }      
-    }
+        prev: true,
+      },
+      direction: "next",
+    };
   },
   computed: {
     currentWork() {
       return this.works[0];
-    }
+    },
   },
   watch: {
     currentIndex(value) {
       this.makeInfiniteLoopForIndex(value);
-    }
+    },
   },
   methods: {
     makeInfiniteLoopForIndex(index) {
@@ -88,10 +130,11 @@ new Vue({
         this.currentIndex = 0;
       }
     },
-    requireImagesToArray(data) {
-      return data.map(item => {
-        const requiredImage = require(`../images/content/${item.photo}`).default;
+    dataConversion(data) {
+      return data.map((item) => {
+        const requiredImage = `${config.BASE_URL}/${item.photo}`;
         item.photo = requiredImage;
+        item.techs = item.techs.split(",");
 
         return item;
       });
@@ -116,14 +159,16 @@ new Vue({
           break;
       }
 
+      this.direction = direction;
+
       this.disabledButtons = {
         next: this.currentIndex === count,
-        prev: this.currentIndex === 0
+        prev: this.currentIndex === 0,
       };
-    }
+    },
   },
-  created() {
-    const data = require("../data/works.json");
-    this.works = this.requireImagesToArray(data);
-  }
+  async created() {
+    const { data } = await axios.get("/works/459");
+    this.works = this.dataConversion(data);
+  },
 });
