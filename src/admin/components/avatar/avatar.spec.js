@@ -1,5 +1,3 @@
-'use strict';
-
 import avatar from "./index";
 import { mount } from "@vue/test-utils";
 
