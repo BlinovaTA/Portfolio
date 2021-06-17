@@ -1,21 +1,17 @@
 <template lang="pug">
-  .tags-adder-component
-    app-input(
-      title="Добавление тега"
-      v-model="currentTags"
-      @input="$emit('change', currentTags)"
+.tags-adder-component
+  app-input(
+    title="Добавление тега",
+    v-model="currentTags",
+    @input="$emit('change', currentTags)"
+  )
+  ul.tags
+    li.tag.tag-wrapper(
+      v-for="(tag, index) in tagsArray",
+      :key="`${tag}${index}`",
+      v-if="tag.trim()"
     )
-    ul.tags
-      li.tag.tag-wrapper(
-        v-for="(tag, index) in tagsArray" 
-        :key="`${tag}${index}`"
-        v-if="tag.trim()"
-      )
-        tag(
-          interactive
-          :title="tag"
-          @click="removeTag(tag)"
-        )
+      tag(interactive, :title="tag", @click="removeTag(tag)")
 </template>
 
 <script>
@@ -25,27 +21,32 @@ import tag from "../tag";
 export default {
   components: {
     appInput,
-    tag
+    tag,
   },
   props: {
     tags: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   model: {
     prop: "tags",
-    event: "change"
+    event: "change",
   },
   data() {
     return {
-      currentTags: this.tags
+      currentTags: this.tags,
+    };
+  },
+  watch: {
+    tags: function(value) {
+      this.currentTags = value;
     }
   },
   computed: {
     tagsArray() {
-      return this.currentTags.trim().split(',');
-    }
+      return this.currentTags.trim().split(",");
+    },
   },
   methods: {
     removeTag(tag) {
@@ -60,9 +61,9 @@ export default {
       this.currentTags = tags.join(", ");
 
       this.$emit("change", this.currentTags);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="postcss" scoped src="./tagsAdder.pcss"></style>
