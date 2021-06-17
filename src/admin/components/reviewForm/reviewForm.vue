@@ -71,6 +71,13 @@ export default {
       preview: ""
     }
   },
+  watch: {
+    "review.photo": function (value) {
+      if (Object.keys(value).length !== 0) {
+        this.preview = `https://webdev-api.loftschool.com/${value}`;
+      }
+    },
+  },
   methods: {
     async handleSubmit() {
       if (!(await this.$validate())) {
