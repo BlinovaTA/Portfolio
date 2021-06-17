@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login tests login snapshot 1`] = `
+<div
+  class="login-page-component"
+>
+  <div
+    class="content"
+  >
+    <form
+      class="form"
+    >
+      <div
+        class="form-title"
+      >
+        Авторизация
+      </div>
+      <div
+        class="row"
+      >
+        <label
+          class="input input_labeled  input_iconed input_icon-user"
+        >
+          <div
+            class="title"
+          >
+            Логин
+          </div>
+           
+          <input
+            class="input__elem field__elem"
+          />
+           
+          <div
+            class="input__error-tooltip"
+          >
+            <div
+              class="input__error-tooltip-container"
+            >
+              
+            </div>
+          </div>
+        </label>
+      </div>
+      <div
+        class="row"
+      >
+        <label
+          class="input input_labeled  input_iconed input_icon-key"
+        >
+          <div
+            class="title"
+          >
+            Пароль
+          </div>
+           
+          <input
+            class="input__elem field__elem"
+            type="password"
+          />
+           
+          <div
+            class="input__error-tooltip"
+          >
+            <div
+              class="input__error-tooltip-container"
+            >
+              
+            </div>
+          </div>
+        </label>
+      </div>
+      <div
+        class="btn"
+      >
+        <button
+          class="default-btn-container btn-decorator"
+          title="Отправить"
+        >
+          Отправить
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;
