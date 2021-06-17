@@ -29,13 +29,7 @@ script(type="text/x-template")#preview-display
         )
 
 script(type="text/x-template")#preview-thumbs
-  transition-group(
-    tag="ul"
-    :css="false"
-    @enter="enterCb"
-    @after-enter="afterCb"
-    @leave="leaveCb"
-  ).thumbs 
+  ul.thumbs 
     li.thumbs__item(
       v-for="work in works" :key="work.id"
       :class="{active: currentWork.id === work.id}"
