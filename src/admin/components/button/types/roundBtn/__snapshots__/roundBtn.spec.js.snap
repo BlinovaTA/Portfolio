@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`round button snapshot 1`] = `
+<button
+  class="round-button-component"
+  data-text="+"
+  type="submit"
+/>
+`;
