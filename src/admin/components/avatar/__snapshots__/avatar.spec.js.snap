@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`avatar snapshot 1`] = `
+<div
+  class="avatar-component"
+  style="width: 3rem; height: 3rem;"
+>
+  <img
+    alt="user picture"
+    class="image"
+  />
+</div>
+`;
