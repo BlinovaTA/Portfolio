@@ -13,7 +13,7 @@
         )
         ul.works__list
           .works__item.works__new-item
-            btn(type="square" title="Добавить работу" @click="addNew")
+            btn#add-new(type="square" title="Добавить работу" @click="addNew")
           li.works__item.works__loaded-item(v-for="work in works" :key="work.id")
             work-card(
               :work="work"
