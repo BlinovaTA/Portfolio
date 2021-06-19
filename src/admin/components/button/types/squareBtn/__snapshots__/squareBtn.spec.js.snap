@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`square button snapshot 1`] = `
+<button
+  class="square-btn-component"
+  type="button"
+>
+  <div
+    class="text"
+  >
+    <div
+      class="sign"
+    />
+     
+    <div
+      class="title"
+    >
+      Добавить работу
+    </div>
+  </div>
+</button>
+`;

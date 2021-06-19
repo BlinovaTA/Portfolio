@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`default button snapshot 1`] = `
+<button
+  class="default-btn-container btn-decorator"
+>
+  Отправить
+</button>
+`;

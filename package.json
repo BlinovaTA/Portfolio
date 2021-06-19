@@ -9,7 +9,8 @@
     "reg": "node reg-util.js",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "test": "jest"
+    "test": "jest",
+    "testWatchAll": "jest --watchAll"
   },
   "keywords": [],
   "author": "",

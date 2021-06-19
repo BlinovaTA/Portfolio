@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card tests card simple view snapshot 1`] = `
+<div
+  class="card-component card_plain"
+/>
+`;
+
+exports[`Card tests card snapshot 1`] = `
+<div
+  class="card-component"
+>
+  <div
+    class="header"
+  >
+    <div
+      class="text"
+    />
+     
+  </div>
+   
+  <div
+    class="content"
+  />
+</div>
+`;
+
+exports[`Card tests card with title snapshot 1`] = `
+<div
+  class="card-component"
+>
+  <div
+    class="header"
+  >
+    <div
+      class="text"
+    >
+      title
+    </div>
+     
+    <!---->
+  </div>
+   
+  <div
+    class="content"
+  />
+</div>
+`;
