@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tags adder tests tags adder snapshot 1`] = `
+<div
+  class="tags-adder-component"
+>
+  <label
+    class="input input_labeled"
+  >
+    <div
+      class="title"
+    >
+      Добавление тега
+    </div>
+     
+    <input
+      class="input__elem field__elem"
+    />
+     
+    <div
+      class="input__error-tooltip"
+    >
+      <div
+        class="input__error-tooltip-container"
+      >
+        
+      </div>
+    </div>
+  </label>
+  <ul
+    class="tags"
+  >
+    <!---->
+  </ul>
+</div>
+`;

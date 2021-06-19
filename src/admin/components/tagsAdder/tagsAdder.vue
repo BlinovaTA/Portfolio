@@ -11,7 +11,7 @@
       :key="`${tag}${index}`",
       v-if="tag.trim()"
     )
-      tag(interactive, :title="tag", @click="removeTag(tag)")
+      tag.tag-item(interactive, :title="tag", @click="removeTag(tag)")
 </template>
 
 <script>
